@@ -1,3 +1,3 @@
 export const environment = {
-    apiURL: ''
+    apiURL: 'https://fedebackend.vercel.app'
 };
