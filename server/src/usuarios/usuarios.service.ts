@@ -5,6 +5,7 @@ import * as bcrypt from 'bcrypt';
 import { Usuario } from './entities/usuario.entity';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { LoginUsuarioDto } from './dto/login-usuario.dto';
 
 @Injectable()
 export class UsuariosService {
@@ -13,6 +14,28 @@ export class UsuariosService {
     
   ) {}
 
+  async login(loginUsuarioDto: LoginUsuarioDto) {
+    const usuario = await this.usuarioModel.findOne({ $or: [{ nombre_usuario: loginUsuarioDto.nombre_usuario }, { email: loginUsuarioDto.email }] }).exec(); // utilizamos el $or porque el usuario puede iniciar sesion tanto con el username como con el email, dependiendo que ingresa el usuario en el POST es lo que se busca en la base de datos.
+    
+    if (!usuario) {
+      throw new NotFoundException('Los datos no coinciden'); // no especificamos si el error es por el username o por la contraseña para no dar pistas al que intenta ingresar.
+    }
+    
+    if(!usuario.es_activo){
+      throw new NotFoundException('Usuario inactivo');
+    }
+
+
+    const esContraseñaValida = await bcrypt.compare(loginUsuarioDto.contraseña, usuario.contraseña); // comparamos la contraseña ingresada con la de nuestra base de datos luego de asegurarnos que el usuario o email es correcto con compare de bcrypt. Esto devuelve un boolean, de esta forma si es false da el mismo error, caso contrario devuelve el usuario y permitimos el ingreso.
+
+    if (!esContraseñaValida) {
+      throw new NotFoundException('Los datos no coinciden');
+    }
+
+    const usuarioLimpio = await this.usuarioModel.findById(usuario._id).select('-contraseña').exec(); // para no devolver la contraseña en el login, buscamos el usuario por id y utilizamos select para excluir la contraseña del resultado.
+
+    return usuarioLimpio;
+  }
 
   async create(createUsuarioDto: CreateUsuarioDto) {
     const contraseñaHash = await bcrypt.hash(createUsuarioDto.contraseña, 10);

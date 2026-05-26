@@ -10,7 +10,7 @@ export class Usuario extends Document {
     apellido!: string;
 
     @Prop({ required: true, unique: true })
-    correo!: string;
+    email!: string;
 
     @Prop({ required: true, unique: true }) 
     nombre_usuario!: string;
