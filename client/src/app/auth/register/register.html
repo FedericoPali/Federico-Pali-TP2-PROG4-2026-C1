@@ -1,1 +1,56 @@
-<p>register works!</p>
+<div class="imagen">
+    <h3>Vuelve el lugar más tóxico (y hermoso) de internet. Si no es para bardearse no entres</h3>
+    <p>Quedate tranqui que aca no tenemos un bot que te pone en bolas</p>
+</div>
+
+<div class="formulario">
+    <form [formGroup]="formulario" (ngSubmit)="action()">
+        <div>
+            <p>Nombre*</p>
+            <input type="text" name="nombre" formControlName="nombre" placeholder="Nombre..." required>
+        </div>
+        <div>
+            <p>Apellido*</p>
+            <input type="text" name="apellido" formControlName="apellido" placeholder="Apellido..." required>
+        </div>
+        <div>
+            <p>Email*</p>
+            <input type="text" name="email" formControlName="email"
+            placeholder="ejemplo@ejemplo.com" required>
+        </div>
+        <div>
+            <p>Username*</p>
+            <input type="text" name="username" formControlName="username" placeholder="Username...">
+        </div>
+        <div>
+            <p>Contraseña*</p>
+            <input type="password" name="contraseña" formControlName="contraseña" placeholder="Contraseña..." required>
+        </div>
+        <div>
+            <p>Reingrese la Contraseña*</p>
+            <input type="password" name="recontraseña" formControlName="recontraseña" placeholder="Contraseña..." required>
+        </div>
+        <div>
+            <p>Fecha de Nacimiento*</p>
+            <input type="date" name="fecha_nacimiento" formControlName="fecha_nacimiento" placeholder="YEAR/MONTH/DAY" required>
+        </div>
+        <div>
+            <p>Descripcion</p>
+            <textarea formControlName="descripcion_breve" maxlength="80"></textarea>
+            <p class="contador-caracteres" [class.contador-excedido]="excedido()">
+                {{ longitudDescripcion() }}/80
+            </p>
+        </div>
+        <div>
+            <button [disabled]="!formulario.valid || cargando() ">Registrarse</button>
+        </div>
+
+        @if(mensajeError()) {
+            <p class="mensaje-error">{{ mensajeError() }}</p>
+        } @else if(formulario.hasError('noCoinciden') && formulario.get('recontraseña')?.touched) {
+            <p class="mensaje-error">Las contraseñas no coinciden, hacé bien la cuenta</p>
+        }
+    
+        <a routerLink="/auth/login">Ya tenes cuenta? Logueate</a>
+    </form>
+</div>

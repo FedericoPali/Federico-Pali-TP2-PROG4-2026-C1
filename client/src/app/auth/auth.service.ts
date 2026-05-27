@@ -21,25 +21,36 @@ export class AuthService {
     }
   }
 
-      async controlarResponse(response: any): Promise<string | null> {
-        if(response.error){
-            switch (response.error.message){
-                case ("Los datos no coinciden"):
-                    throw new Error("El correo o contraseña son incorrectos"); 
-                        
-                case ("User already registered"):
-                    throw new Error("El correo se encuentra registrado");
-
-                case ("Password should contain at least one character of each: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ, 0123456789."):
-                    throw new Error("La contraseña debe contener letras y numeros");
-
-                default:
-                    throw new Error("Ocurrio un error: " + response.error.message);
-            }
-        } else {
-
-
-            return response
-        }
+  async registerUsuario(nombre: string, apellido: string, email: string, username: string , contraseña: string, fecha_nacimiento: string, descripcion?: string){
+    try {
+      
+      const respuesta = await firstValueFrom(this.http.post("https://fedebackend.vercel.app/usuarios/crear", {nombre: nombre, apellido: apellido, email: email, nombre_usuario: username, contraseña: contraseña, fecha_nacimiento: fecha_nacimiento, descripcion_breve: descripcion }))
+      
+      return this.controlarResponse(respuesta);
+    } catch (e) {
+      return this.controlarResponse(e);
     }
+  }
+
+  async controlarResponse(response: any): Promise<string | null> {
+    if(response.error){
+      switch (response.error.message){
+        case ("Los datos no coinciden"):
+          throw new Error("El correo o contraseña son incorrectos"); 
+                        
+        case ("User already registered"):
+          throw new Error("El correo se encuentra registrado");
+
+        case ("Password should contain at least one character of each: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ, 0123456789."):
+          throw new Error("La contraseña debe contener letras y numeros");
+
+        default:
+          throw new Error("Ocurrio un error: " + response.error.message);
+      }
+    } else {
+
+
+      return response
+    }
+  }
 }

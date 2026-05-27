@@ -9,13 +9,31 @@
 .imagen {
     flex: 1;
     display: flex;
-    background-color: #000;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(rgba(26, 28, 41, 0.8), rgba(26, 28, 41, 0.8)), url('/images/TwitterReborn.png');
+    background-size: cover;
+    background-position: center;
+    padding: 2rem;
+    box-sizing: border-box;
 }
 
-.imagen img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.imagen h3 {
+    color: #f8fafc;
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+}
+
+.imagen p {
+    color: #94a3b8;
+    font-size: 1.1rem;
+    text-align: center;
+    max-width: 80%;
+    margin-bottom: 2.5rem;
+    line-height: 1.5;
 }
 
 .formulario {

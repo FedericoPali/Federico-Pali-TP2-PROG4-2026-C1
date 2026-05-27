@@ -9,6 +9,7 @@ import { AuthService } from '../auth.service';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
+
 export class Login {
   authS = inject(AuthService)
   router = inject(Router)
