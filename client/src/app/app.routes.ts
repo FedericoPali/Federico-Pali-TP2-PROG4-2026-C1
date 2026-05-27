@@ -15,5 +15,10 @@ export const routes: Routes = [
     {
         path: 'mi-perfil',
         component: MiPerfil
+    },
+    {
+        path: "",
+        redirectTo: "auth",
+        pathMatch: 'full'
     }
 ];
