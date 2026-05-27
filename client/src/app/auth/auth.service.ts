@@ -37,7 +37,7 @@ export class AuthService {
       console.log("Error detallado del backend:", response.error);
       switch (response.error.message){
         case ("Los datos no coinciden"):
-          throw new Error("El correo o contraseña son incorrectos"); 
+          throw new Error("El correo/usuario o contraseña son incorrectos"); 
                         
         case ("User already registered"):
           throw new Error("El correo se encuentra registrado");

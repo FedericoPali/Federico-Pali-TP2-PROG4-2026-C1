@@ -29,7 +29,7 @@ export class Login {
       this.cargando.set(true);
       const respuesta = await this.authS.loginUsuario(this.formulario.value.email_username!, this.formulario.value.password!)
       console.log("inicio de sesion correcto", respuesta);
-      this.router.navigateByUrl("/publicaciones")
+      this.router.navigateByUrl("pages/publicaciones")
       this.cargando.set(false);
     } catch(e){
       console.error(e);

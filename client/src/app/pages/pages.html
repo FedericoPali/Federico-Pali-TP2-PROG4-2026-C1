@@ -1,1 +1,14 @@
-<p>pages works!</p>
+<div class="twitter-layout">
+    <div class="contenedor-principal"> <nav class="barra-lateral">
+            <ul>
+                <li><a href="/pages/publicaciones"><img class="logo" src="images/TwitterRebornLogo.png" alt="Twitter Foto"></a></li>
+                <li><a routerLink="/pages/publicaciones">Home</a></li>
+                <li><a routerLink="/pages/mi-perfil">Mi Perfil</a></li>
+            </ul>
+        </nav>
+
+        <main class="contenedor-feed">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+</div>
