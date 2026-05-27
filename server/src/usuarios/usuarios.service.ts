@@ -15,7 +15,7 @@ export class UsuariosService {
   ) {}
 
   async login(loginUsuarioDto: LoginUsuarioDto) {
-    const usuario = await this.usuarioModel.findOne({ $or: [{ nombre_usuario: loginUsuarioDto.nombre_usuario }, { email: loginUsuarioDto.email }] }).exec(); // utilizamos el $or porque el usuario puede iniciar sesion tanto con el username como con el email, dependiendo que ingresa el usuario en el POST es lo que se busca en la base de datos.
+    const usuario = await this.usuarioModel.findOne({ $or: [{ nombre_usuario: loginUsuarioDto.identificador }, { email: loginUsuarioDto.identificador }] }).exec(); // utilizamos el $or porque el usuario puede iniciar sesion tanto con el username como con el email, dependiendo que ingresa el usuario en el POST es lo que se busca en la base de datos.
     
     if (!usuario) {
       throw new NotFoundException('Los datos no coinciden'); // no especificamos si el error es por el username o por la contraseña para no dar pistas al que intenta ingresar.
