@@ -42,6 +42,7 @@ export class UsuariosService {
 
     createUsuarioDto.contraseña = contraseñaHash;
 
+    console.log("Datos recibidos en el backend:", createUsuarioDto);
     const usuarioCreado = await this.usuarioModel.create(createUsuarioDto);
     
     return usuarioCreado;

@@ -34,6 +34,7 @@ export class AuthService {
 
   async controlarResponse(response: any): Promise<string | null> {
     if(response.error){
+      console.log("Error detallado del backend:", response.error);
       switch (response.error.message){
         case ("Los datos no coinciden"):
           throw new Error("El correo o contraseña son incorrectos"); 
