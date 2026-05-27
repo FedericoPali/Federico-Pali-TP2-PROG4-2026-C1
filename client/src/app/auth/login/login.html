@@ -11,8 +11,11 @@
     </div>
 
     <div>
-        <button [disabled]="!formulario.valid">Login</button>
+        <button [disabled]="!formulario.valid || cargando() ">Login</button>
     </div>
+    @if(mensajeError()) {
+    <p class="mensaje-error">{{ mensajeError() }}</p>
+    }
 
     <a routerLink="/auth/register">No tenes cuenta? Registrate</a>
 </form>
