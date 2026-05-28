@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class AuthService {
   async loginUsuario(identificador: string, contraseña: string) {
     try{
       // utilizo firstValueFrom para poder convertir el Observable en promesa, esta herramienta lo que hace es suscribirse al observable, espera a que llegue el primer paquete de datos y una vez pasa eso se desuscribe y transforma el dato en una promesa para poder usar el async y await.
-      const respuesta = await firstValueFrom(this.http.post("https://fedebackend.vercel.app/usuarios/login", {identificador: identificador, contraseña: contraseña}));
+      const respuesta = await firstValueFrom(this.http.post(environment.apiURL + "/usuarios/login", {identificador: identificador, contraseña: contraseña}));
 
       return this.controlarResponse(respuesta);
     } catch(e){
@@ -24,7 +25,7 @@ export class AuthService {
   async registerUsuario(nombre: string, apellido: string, email: string, username: string , contraseña: string, fecha_nacimiento: string, descripcion?: string){
     try {
       
-      const respuesta = await firstValueFrom(this.http.post("https://fedebackend.vercel.app/usuarios/crear", {nombre: nombre, apellido: apellido, email: email, nombre_usuario: username, contraseña: contraseña, fecha_nacimiento: fecha_nacimiento, descripcion_breve: descripcion }))
+      const respuesta = await firstValueFrom(this.http.post(environment.apiURL + "/usuarios/crear", {nombre: nombre, apellido: apellido, email: email, nombre_usuario: username, contraseña: contraseña, fecha_nacimiento: fecha_nacimiento, descripcion_breve: descripcion }))
       
       return this.controlarResponse(respuesta);
     } catch (e) {
