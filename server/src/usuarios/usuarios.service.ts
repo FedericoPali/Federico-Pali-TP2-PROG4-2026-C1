@@ -38,6 +38,18 @@ export class UsuariosService {
   }
 
   async create(createUsuarioDto: CreateUsuarioDto) {
+    const usuarioExistente = await this.usuarioModel.findOne({ $or: [{ nombre_usuario: createUsuarioDto.nombre_usuario }, { email: createUsuarioDto.email }] }).exec();
+    
+    if(usuarioExistente){
+      if (usuarioExistente.email === createUsuarioDto.email) {
+        throw new ConflictException('El email ya está registrado');
+      }
+    
+      if (usuarioExistente.nombre_usuario === createUsuarioDto.nombre_usuario) {
+          throw new ConflictException('El nombre de usuario ya está en uso');
+      }
+    }
+
     const contraseñaHash = await bcrypt.hash(createUsuarioDto.contraseña, 10);
 
     createUsuarioDto.contraseña = contraseñaHash;
