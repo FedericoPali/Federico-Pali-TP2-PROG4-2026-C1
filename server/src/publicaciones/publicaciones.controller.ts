@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } fro
 import { PublicacionesService } from './publicaciones.service';
 import { CreatePublicacionesDto } from './dto/create-publicaciones.dto';
 import { UpdatePublicacionesDto } from './dto/update-publicaciones.dto';
-import { JwtGuard } from 'src/auth/guards/jwt/jwt.guard';
+import { JwtGuard } from '../auth/guards/jwt/jwt.guard';
 
 @Controller('publicaciones')
 export class PublicacionesController {
