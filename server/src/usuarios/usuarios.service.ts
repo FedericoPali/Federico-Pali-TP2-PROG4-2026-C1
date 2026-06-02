@@ -5,7 +5,6 @@ import * as bcrypt from 'bcrypt';
 import { Usuario } from './entities/usuario.entity';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { LoginUsuarioDto } from './dto/login-usuario.dto';
 
 @Injectable()
 export class UsuariosService {
@@ -13,29 +12,6 @@ export class UsuariosService {
     @InjectModel(Usuario.name) private usuarioModel: Model<Usuario>,
     
   ) {}
-
-  async login(loginUsuarioDto: LoginUsuarioDto) {
-    const usuario = await this.usuarioModel.findOne({ $or: [{ nombre_usuario: loginUsuarioDto.identificador }, { email: loginUsuarioDto.identificador }] }).exec(); // utilizamos el $or porque el usuario puede iniciar sesion tanto con el username como con el email, dependiendo que ingresa el usuario en el POST es lo que se busca en la base de datos.
-    
-    if (!usuario) {
-      throw new NotFoundException('Los datos no coinciden'); // no especificamos si el error es por el username o por la contraseña para no dar pistas al que intenta ingresar.
-    }
-    
-    if(!usuario.es_activo){
-      throw new NotFoundException('Usuario inactivo');
-    }
-
-
-    const esContraseñaValida = await bcrypt.compare(loginUsuarioDto.contraseña, usuario.contraseña); // comparamos la contraseña ingresada con la de nuestra base de datos luego de asegurarnos que el usuario o email es correcto con compare de bcrypt. Esto devuelve un boolean, de esta forma si es false da el mismo error, caso contrario devuelve el usuario y permitimos el ingreso.
-
-    if (!esContraseñaValida) {
-      throw new NotFoundException('Los datos no coinciden');
-    }
-
-    const usuarioLimpio = await this.usuarioModel.findById(usuario._id).select('-contraseña').exec(); // para no devolver la contraseña en el login, buscamos el usuario por id y utilizamos select para excluir la contraseña del resultado.
-
-    return usuarioLimpio;
-  }
 
   async create(createUsuarioDto: CreateUsuarioDto) {
     const usuarioExistente = await this.usuarioModel.findOne({ $or: [{ nombre_usuario: createUsuarioDto.nombre_usuario }, { email: createUsuarioDto.email }] }).exec();
@@ -106,6 +82,12 @@ export class UsuariosService {
     }
 
     return this.usuarioModel.findByIdAndUpdate(usuario._id, { es_activo: false }, { new: true }).exec();
+  }
+
+  async buscarByEmailOUser(identificador: string){
+    const usuario = await this.usuarioModel.findOne({ $or: [{ nombre_usuario: identificador }, { email: identificador }] }).exec(); // utilizamos el $or porque el usuario puede iniciar sesion tanto con el username como con el email, dependiendo que ingresa el usuario en el POST es lo que se busca en la base de datos.
+    
+    return usuario;
   }
 
   // utilice el nombre de usuario como identificador unico para las operaciones pq es un campo unico y es mas facil de manejarse que con el id generado por MongoDB y asi el usuario solo debe ingresar el username para realizar las distintas operaciones. Igualmente dentro utilizamos el id para las operaciones, asi nos aseguramos de que estamos manejando el usuario correcto.

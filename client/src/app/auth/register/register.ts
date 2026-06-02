@@ -42,7 +42,7 @@ export class Register {
     try{
       this.cargando.set(true);
       const respuesta = await this.authS.registerUsuario(this.formulario.value.nombre!, this.formulario.value.apellido!, this.formulario.value.email!, this.formulario.value.username!, this.formulario.value.contraseña!, this.formulario.value.fecha_nacimiento!, this.formulario.value.descripcion_breve!)
-      console.log("inicio de sesion correcto", respuesta);
+      console.log("registro exitoso", respuesta);
       this.router.navigateByUrl("/auth/login")
       this.cargando.set(false);
     } catch(e){

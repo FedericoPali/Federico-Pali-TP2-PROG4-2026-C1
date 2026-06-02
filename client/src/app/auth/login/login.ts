@@ -28,6 +28,7 @@ export class Login {
     try{
       this.cargando.set(true);
       const respuesta = await this.authS.loginUsuario(this.formulario.value.email_username!, this.formulario.value.password!)
+      localStorage.setItem('token', (respuesta as any).access_token)
       console.log("inicio de sesion correcto", respuesta);
       this.router.navigateByUrl("pages/publicaciones")
       this.cargando.set(false);
