@@ -1,4 +1,4 @@
-import { Prop, Schema } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose from "mongoose";
 
 @Schema()
@@ -21,3 +21,5 @@ export class Publicaciones {
     @Prop({type: {type: mongoose.Schema.Types.ObjectId, ref: 'Usuario' }})
     creador: mongoose.Types.ObjectId;
 }
+
+export const PublicacionesSchema = SchemaFactory.createForClass(Publicaciones);

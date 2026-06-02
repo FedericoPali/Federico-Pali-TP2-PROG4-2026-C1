@@ -51,11 +51,7 @@ export class UsuariosService {
   }
 
   async update(username: string, updateUsuarioDto: UpdateUsuarioDto) {
-    const usuario = await this.usuarioModel.findOne({ nombre_usuario: username }).exec();
-
-    if (!usuario) {
-      throw new NotFoundException('Usuario no encontrado');
-    }
+    const usuario = await this.findOne(username);
 
     if (updateUsuarioDto.contraseña) { // en caso de que se quiera actualizar la contraseña, la hasheamos y la guardamos en el DTO para que luego en el findByIdAndUpdate se actualice correctamente. Si en el DTO no hay contraseña pasa de largo.
       const contraseñaHash = await bcrypt.hash(updateUsuarioDto.contraseña, 10);
@@ -75,11 +71,7 @@ export class UsuariosService {
   }
 
   async remove(username: string) {
-    const usuario = await this.usuarioModel.findOne({ nombre_usuario: username }).exec();
-    
-    if (!usuario) {
-      throw new NotFoundException('Usuario no encontrado');
-    }
+    const usuario = await this.findOne(username);
 
     return this.usuarioModel.findByIdAndUpdate(usuario._id, { es_activo: false }, { new: true }).exec();
   }
