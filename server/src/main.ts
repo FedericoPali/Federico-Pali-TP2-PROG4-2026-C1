@@ -11,7 +11,10 @@ async function bootstrap() {
   app.enableCors({ origin: '*' });
 
   await app.listen(process.env.PORT ?? 3000);
+
+  console.log("¿La clave secreta está cargada?:", process.env.PALABRA_SECRETA ? "SÍ" : "NO");
 }
 bootstrap().catch((error) =>
   console.error(error),
+
 );
