@@ -18,6 +18,9 @@ export class Publicaciones {
     @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Usuario' }]})
     me_gustas: mongoose.Types.ObjectId[];
 
+    @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Publicaciones' }]})
+    comentarios: mongoose.Types.ObjectId[];
+
     @Prop({type: {type: mongoose.Schema.Types.ObjectId, ref: 'Usuario' }})
     creador: mongoose.Types.ObjectId;
 }

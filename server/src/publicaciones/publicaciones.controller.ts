@@ -36,4 +36,11 @@ export class PublicacionesController {
   remove(@Param('id') id: string) {
     return this.publicacionesService.remove(id);
   }
+
+  @UseGuards(JwtGuard)
+  @Post(':id/like')
+  switchLike(@Param('id') idPublicacion: string, @Req() peticion: any){
+    const idUser = peticion.usuario.sub;
+    return this.publicacionesService.switchLike(idPublicacion, idUser);
+  }
 }

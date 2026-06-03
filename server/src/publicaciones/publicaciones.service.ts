@@ -3,7 +3,7 @@ import { CreatePublicacionesDto } from './dto/create-publicaciones.dto';
 import { UpdatePublicacionesDto } from './dto/update-publicaciones.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Publicaciones } from './entities/publicaciones.entity';
-import { Model } from 'mongoose';
+import mongoose, { Model, Types } from 'mongoose';
 
 @Injectable()
 export class PublicacionesService {
@@ -49,5 +49,23 @@ export class PublicacionesService {
     const publicacion = await this.findOne(id);
 
     return this.publicacionesModel.findByIdAndUpdate(publicacion._id, { es_activo: false }, { new: true }).exec();
+  }
+
+  async switchLike(idPublicacion: string, idUser: string){
+    const publicacion = await this.findOne(idPublicacion);
+
+    const indexLike = publicacion.me_gustas.findIndex((likeId) => likeId.toString() === idUser);
+
+    if(indexLike === -1){
+      const userObjectId = new mongoose.Types.ObjectId(idUser) // como la columna me_gustas de cada publicacion guarda objectId del usuario, convertimos el idUser string traido del JWT a ObjectId y lo pasamos al push()
+      publicacion.me_gustas.push(userObjectId);
+
+    } else {
+      publicacion.me_gustas.splice(indexLike, 1);
+    }
+
+    await publicacion.save();
+
+    return publicacion
   }
 }
