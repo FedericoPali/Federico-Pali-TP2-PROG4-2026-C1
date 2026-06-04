@@ -42,7 +42,7 @@ export class UsuariosService {
   }
 
   async findOne(username: string) {
-    const usuario = await this.usuarioModel.findOne({ nombre_usuario: username }).exec();
+    const usuario = await this.usuarioModel.findOne({ nombre_usuario: username, es_activo: true }).exec();
 
     if (!usuario) {
       throw new NotFoundException('Usuario no encontrado');

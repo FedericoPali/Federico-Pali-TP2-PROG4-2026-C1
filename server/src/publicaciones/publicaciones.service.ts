@@ -29,7 +29,7 @@ export class PublicacionesService {
   }
 
   async findOne(id: string) {
-    const publicacion = await this.publicacionesModel.findById(id).exec();
+    const publicacion = await this.publicacionesModel.findOne({_id: id, es_activo: true}).exec();
 
     if (!publicacion) {
       throw new NotFoundException('Publicacion inexistente');
@@ -40,15 +40,15 @@ export class PublicacionesService {
   async update(id: string, updatePublicacionesDto: UpdatePublicacionesDto) {
         const publicacion = await this.findOne(id);
     
-        const usuarioUpdate = await this.publicacionesModel.findByIdAndUpdate(publicacion._id, updatePublicacionesDto, { new: true }).exec();
+        const publicacionUpdate = await this.publicacionesModel.findByIdAndUpdate(publicacion._id, updatePublicacionesDto, { new: true }).exec();
     
-        return usuarioUpdate;
+        return publicacionUpdate;
   }
 
   async remove(id: string) {
     const publicacion = await this.findOne(id);
 
-    return this.publicacionesModel.findByIdAndUpdate(publicacion._id, { es_activo: false }, { new: true }).exec();
+    return await this.publicacionesModel.findByIdAndUpdate(publicacion._id, { es_activo: false }, { new: true }).exec();
   }
 
   async switchLike(idPublicacion: string, idUser: string){

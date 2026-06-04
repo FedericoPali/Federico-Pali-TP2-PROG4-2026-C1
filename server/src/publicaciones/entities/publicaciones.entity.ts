@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 @Schema()
 export class Publicaciones {
@@ -15,14 +15,11 @@ export class Publicaciones {
     @Prop({default: true})
     es_activo: boolean; 
 
-    @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Usuario' }]})
-    me_gustas: mongoose.Types.ObjectId[];
+    @Prop({type: [{type: Types.ObjectId, ref: 'Usuario' }]})
+    me_gustas: Types.ObjectId[];
 
-    @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Publicaciones' }]})
-    comentarios: mongoose.Types.ObjectId[];
-
-    @Prop({type: {type: mongoose.Schema.Types.ObjectId, ref: 'Usuario' }})
-    creador: mongoose.Types.ObjectId;
+    @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'Usuario' })
+    creador: Types.ObjectId;
 }
 
 export const PublicacionesSchema = SchemaFactory.createForClass(Publicaciones);
