@@ -1,0 +1,14 @@
+<div class="publi-card">
+    <div class="publi-header">
+        <h3 class="publi-titulo">{{ publi().titulo }}</h3>
+
+    </div>
+    <div class="publi-body">
+        <p class="publi-texto">{{ publi().descripcion }}</p>
+    </div>
+    <div class="publi-footer">
+        <span><button (click)="emitirLike(publi()._id)">❤</button>{{ publi().me_gustas.length }}</span>
+        <span><button (click)="emitirComentar()">🗨</button>{{ publi().cantidadComentarios }}</span>
+    </div>
+
+</div>

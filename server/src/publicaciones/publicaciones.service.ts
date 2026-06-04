@@ -24,12 +24,12 @@ export class PublicacionesService {
   }
 
   async findAll() {
-    const publicaciones = await this.publicacionesModel.find({es_activo: true}).exec();
+    const publicaciones = await this.publicacionesModel.find({es_activo: true}).populate('cantidadComentarios').exec();
     return publicaciones;
   }
 
   async findOne(id: string) {
-    const publicacion = await this.publicacionesModel.findOne({_id: id, es_activo: true}).exec();
+    const publicacion = await this.publicacionesModel.findOne({_id: id, es_activo: true}).populate('cantidadComentarios').exec();
 
     if (!publicacion) {
       throw new NotFoundException('Publicacion inexistente');

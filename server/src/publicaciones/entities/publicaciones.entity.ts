@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { Types } from "mongoose";
+import { Comentario } from "./comentario.entity";
 
 @Schema()
 export class Publicaciones {
@@ -23,3 +24,13 @@ export class Publicaciones {
 }
 
 export const PublicacionesSchema = SchemaFactory.createForClass(Publicaciones);
+
+PublicacionesSchema.set('toJSON', { virtuals: true }); // habilitamos que virtuals viaje tanto en los JSON como en los Objects
+PublicacionesSchema.set('toObject', { virtuals: true });
+
+PublicacionesSchema.virtual('cantidadComentarios', {
+    ref: 'Comentario',
+    localField: '_id',
+    foreignField: 'publicacionId',
+    count: true
+}); // con esto creamos un virtual que genera un campo llamado cantidadComentarios, en el cual se va a almacenar la cantidad de publicacionId en la collection Comentarios que sean iguales a la _id de la publicacion.

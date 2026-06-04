@@ -1,1 +1,8 @@
 <p>HOLA, ACA VAN A ESTAR LOS MENSAJES CUANDO LOS IMPLEMENTE</p>
+
+@for (publi of listaPublicaciones(); track publi._id){
+    
+    <app-publi-card [publi]="publi" (onLike)="manejarLike($event)"></app-publi-card>
+} @empty {
+    <p style="color: gray;">No hay publicaciones para mostrar todavía.</p>
+}
