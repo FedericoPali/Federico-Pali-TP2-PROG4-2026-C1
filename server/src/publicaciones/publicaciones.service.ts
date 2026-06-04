@@ -20,11 +20,14 @@ export class PublicacionesService {
     
     const publicacionCreada = await this.publicacionesModel.create(nuevaPublicacion)
 
-    return publicacionCreada
+    return await publicacionCreada.populate([
+      { path: 'creador', select: 'nombre_usuario' },
+      { path: 'cantidadComentarios' }
+    ]);
   }
 
   async findAll() {
-    const publicaciones = await this.publicacionesModel.find({es_activo: true}).populate('cantidadComentarios').populate('creador', 'nombre_usuario').exec();
+    const publicaciones = await this.publicacionesModel.find({es_activo: true}).sort({_id: -1}).populate('cantidadComentarios').populate('creador', 'nombre_usuario').exec();
     return publicaciones;
   }
 
@@ -38,11 +41,11 @@ export class PublicacionesService {
   }
 
   async update(id: string, updatePublicacionesDto: UpdatePublicacionesDto) {
-        const publicacion = await this.findOne(id);
+    const publicacion = await this.findOne(id);
     
-        const publicacionUpdate = await this.publicacionesModel.findByIdAndUpdate(publicacion._id, updatePublicacionesDto, { new: true }).exec();
+    const publicacionUpdate = await this.publicacionesModel.findByIdAndUpdate(publicacion._id, updatePublicacionesDto, { new: true }).exec();
     
-        return publicacionUpdate;
+    return publicacionUpdate;
   }
 
   async remove(id: string) {
