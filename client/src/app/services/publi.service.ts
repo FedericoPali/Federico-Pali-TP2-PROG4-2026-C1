@@ -11,7 +11,10 @@ export interface Publi {
   imagen: string,
   es_activo: boolean,
   me_gustas: string[],
-  creador: string,
+  creador: {
+    _id: string,
+    nombre_usuario: string
+  },
   cantidadComentarios?: number
 }
 

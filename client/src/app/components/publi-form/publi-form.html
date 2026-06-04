@@ -1,1 +1,27 @@
-<p>publi-form works!</p>
+<div class="publi-form">
+    <h2>Realizar publicacion:</h2>
+    <hr>
+    <form [formGroup]="publiForm" (ngSubmit)="action()">
+        <div>
+            <p>Titulo</p>
+            <input type="text" name="titulo" formControlName="titulo"
+            placeholder="Titulo..." required>
+        </div>
+        <div>
+            <p>Descripcion</p>
+            <input type="text" name="descripcion" formControlName="descripcion" placeholder="Descripcion..." required>
+        </div>
+
+        <div>
+            <p>Imagen</p>
+            <p>Por añadirse, esperen a futuras actualizaciones...</p>
+        </div>
+    
+        <div>
+            <button [disabled]="!publiForm.valid">Publicar</button>
+        </div>
+        @if(mensajeError()) {
+        <p class="mensaje-error">{{ mensajeError() }}</p>
+        }
+    </form>
+</div>

@@ -1,10 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { PubliCard } from '../../components/publi-card/publi-card';
 import { Publi, PubliServices } from '../../services/publi.service';
+import { PubliForm } from '../../components/publi-form/publi-form';
 
 @Component({
   selector: 'app-publicaciones',
-  imports: [PubliCard],
+  imports: [PubliCard, PubliForm],
   templateUrl: './publicaciones.html',
   styleUrl: './publicaciones.css',
 })
@@ -39,7 +40,20 @@ export class Publicaciones {
         })
       })
     } catch (error) {
-      
+      console.error("Error al intentar dar like a la publicacion", error);
+    }
+  }
+
+  async manejarCreacion(paquete: { titulo: string, descripcion: string, imagen?: string }){
+    try {
+      const data = await this.publiService.postPublicacion(paquete.titulo, paquete.descripcion, paquete.imagen)
+
+      this.listaPublicaciones.update( (actual) => {
+        return [data, ...actual];
+      })
+      console.log("Post creado", data);
+    } catch (error) {
+      console.error("Error al intentar postear la publicacion", error);
     }
   }
 }
