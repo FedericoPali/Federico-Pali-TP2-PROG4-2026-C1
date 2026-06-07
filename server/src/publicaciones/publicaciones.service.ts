@@ -4,7 +4,7 @@ import { UpdatePublicacionesDto } from './dto/update-publicaciones.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Publicaciones } from './entities/publicaciones.entity';
 import mongoose, { Model, SortOrder, Types } from 'mongoose';
-import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { CloudinaryService } from '../cloudinary/cloudinary.service';
 
 @Injectable()
 export class PublicacionesService {

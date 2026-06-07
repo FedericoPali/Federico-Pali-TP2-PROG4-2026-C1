@@ -7,7 +7,7 @@ import { AuthModule } from '../auth/auth.module';
 import { ComentariosController } from './comentarios.controller';
 import { ComentariosService } from './comentarios.service';
 import { Comentario, ComentarioSchema } from './entities/comentario.entity';
-import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
+import { CloudinaryModule } from '../cloudinary/cloudinary.module';
 
 @Module({
   imports: [
