@@ -3,18 +3,26 @@ import { CreatePublicacionesDto } from './dto/create-publicaciones.dto';
 import { UpdatePublicacionesDto } from './dto/update-publicaciones.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Publicaciones } from './entities/publicaciones.entity';
-import mongoose, { Model, Types } from 'mongoose';
+import mongoose, { Model, SortOrder, Types } from 'mongoose';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class PublicacionesService {
 
   constructor(
-    @InjectModel(Publicaciones.name) private publicacionesModel: Model<Publicaciones>
+    @InjectModel(Publicaciones.name) private publicacionesModel: Model<Publicaciones>,
+    private cloudinaryService: CloudinaryService
   ) {}
 
-  async create(createPublicacionesDto: CreatePublicacionesDto, creadorId) {
+  async create(createPublicacionesDto: CreatePublicacionesDto, creadorId, archivo?: any) {
     
     console.log("Datos recibidos en el backend:", createPublicacionesDto);
+
+    if(archivo) {
+      const urlImgPubli = await this.cloudinaryService.subirImagen(archivo, "red_social/publicaciones")
+      createPublicacionesDto.imagen = urlImgPubli;
+
+    }
 
     const nuevaPublicacion = {...createPublicacionesDto, creador: creadorId}
     
@@ -26,8 +34,32 @@ export class PublicacionesService {
     ]);
   }
 
-  async findAll() {
-    const publicaciones = await this.publicacionesModel.find({es_activo: true}).sort({_id: -1}).populate('cantidadComentarios').populate('creador', 'nombre_usuario').exec();
+  async findAll(idCreador?: string, limite?: string, salto?: string, orden?: string) {
+
+    const limiteInt = limite ? parseInt(limite, 10) : 3
+    const saltoInt = salto ? parseInt(salto, 10) : 0
+
+    const filtro: {es_activo: boolean, creador?: Types.ObjectId} = {es_activo: true }
+
+    let ordenarPor: {_id?: SortOrder, cantidadLikes?: SortOrder} = {_id: -1}
+
+    if(orden){
+      if(orden === "likes"){
+        ordenarPor = {cantidadLikes: -1}
+      }
+    }
+
+    if(idCreador){
+      const creadorObjectId = new mongoose.Types.ObjectId(idCreador)
+      filtro.creador = creadorObjectId
+    }
+
+    const publicaciones = await this.publicacionesModel.find(filtro)
+    .sort(ordenarPor)
+    .skip(saltoInt)
+    .limit(limiteInt)
+    .populate('cantidadComentarios').populate('creador', 'nombre_usuario').exec();
+
     return publicaciones;
   }
 
@@ -62,9 +94,11 @@ export class PublicacionesService {
     if(indexLike === -1){
       const userObjectId = new mongoose.Types.ObjectId(idUser) // como la columna me_gustas de cada publicacion guarda objectId del usuario, convertimos el idUser string traido del JWT a ObjectId y lo pasamos al push()
       publicacion.me_gustas.push(userObjectId);
+      publicacion.cantidadLikes += 1;
 
     } else {
       publicacion.me_gustas.splice(indexLike, 1);
+      publicacion.cantidadLikes -= 1;
     }
 
     await publicacion.save();

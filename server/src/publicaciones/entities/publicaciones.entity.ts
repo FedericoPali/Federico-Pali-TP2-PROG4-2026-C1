@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { Types } from "mongoose";
-import { Comentario } from "./comentario.entity";
 
 @Schema()
 export class Publicaciones {
@@ -15,6 +14,9 @@ export class Publicaciones {
 
     @Prop({default: true})
     es_activo: boolean; 
+
+    @Prop({default: 0})
+    cantidadLikes: number;
 
     @Prop({type: [{type: Types.ObjectId, ref: 'Usuario' }]})
     me_gustas: Types.ObjectId[];

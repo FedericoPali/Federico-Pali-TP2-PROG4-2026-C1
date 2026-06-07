@@ -17,7 +17,7 @@ export class CreateUsuarioDto {
     @Matches(/^(?=.*[A-Z])(?=.*\d).{8,}$/, {
     message: 'La contraseña debe tener al menos 8 caracteres, una mayúscula y un número',
     })
-    contraseña: string;
+    contrasena: string;
 
     @IsDateString()
     fecha_nacimiento: string;

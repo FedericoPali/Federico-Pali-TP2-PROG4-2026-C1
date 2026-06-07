@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, Query, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { PublicacionesService } from './publicaciones.service';
 import { CreatePublicacionesDto } from './dto/create-publicaciones.dto';
 import { UpdatePublicacionesDto } from './dto/update-publicaciones.dto';
 import { JwtGuard } from '../auth/guards/jwt/jwt.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('publicaciones')
 export class PublicacionesController {
@@ -10,16 +11,19 @@ export class PublicacionesController {
 
   @UseGuards(JwtGuard)
   @Post()
-  create(@Body() createPublicacionesDto: CreatePublicacionesDto, @Req() peticion: any) {
+  @UseInterceptors(FileInterceptor('archivo'))
+  create(@Body() createPublicacionesDto: CreatePublicacionesDto, @Req() peticion: any, @UploadedFile() archivo) {
     const idCreador = peticion.usuario.sub;
-    return this.publicacionesService.create(createPublicacionesDto, idCreador);
+    return this.publicacionesService.create(createPublicacionesDto, idCreador, archivo);
   }
 
+  @UseGuards(JwtGuard)
   @Get()
-  findAll() {
-    return this.publicacionesService.findAll();
+  findAll(@Query('idCreador') idCreador?: string, @Query('limite') limite?: string, @Query('salto') salto?: string) {
+    return this.publicacionesService.findAll(idCreador, limite, salto);
   }
 
+  @UseGuards(JwtGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.publicacionesService.findOne(id);

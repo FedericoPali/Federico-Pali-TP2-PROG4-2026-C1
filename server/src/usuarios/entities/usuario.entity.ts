@@ -16,7 +16,7 @@ export class Usuario extends Document {
     nombre_usuario!: string;
 
     @Prop({ required: true })
-    contraseña!: string;
+    contrasena!: string;
 
     @Prop()
     fecha_nacimiento!: string;

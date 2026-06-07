@@ -10,10 +10,10 @@ export class AuthService {
 
   http = inject(HttpClient);
 
-  async loginUsuario(identificador: string, contraseña: string) {
+  async loginUsuario(identificador: string, contrasena: string) {
     try{
       // utilizo firstValueFrom para poder convertir el Observable en promesa, esta herramienta lo que hace es suscribirse al observable, espera a que llegue el primer paquete de datos y una vez pasa eso se desuscribe y transforma el dato en una promesa para poder usar el async y await.
-      const respuesta = await firstValueFrom(this.http.post(environment.apiURL + "/auth/login", {identificador: identificador, contraseña: contraseña}));
+      const respuesta = await firstValueFrom(this.http.post(environment.apiURL + "/auth/login", {identificador: identificador, contrasena: contrasena}));
 
       return this.controlarResponse(respuesta);
     } catch(e){
@@ -22,10 +22,10 @@ export class AuthService {
     }
   }
 
-  async registerUsuario(nombre: string, apellido: string, email: string, username: string , contraseña: string, fecha_nacimiento: string, descripcion?: string){
+  async registerUsuario(datos: FormData){
     try {
       
-      const respuesta = await firstValueFrom(this.http.post(environment.apiURL + "/usuarios/crear", {nombre: nombre, apellido: apellido, email: email, nombre_usuario: username, contraseña: contraseña, fecha_nacimiento: fecha_nacimiento, descripcion_breve: descripcion }))
+      const respuesta = await firstValueFrom(this.http.post(environment.apiURL + "/usuarios/crear", datos))
       
       return this.controlarResponse(respuesta);
     } catch (e) {
@@ -38,13 +38,13 @@ export class AuthService {
       console.log("Error detallado del backend:", response.error);
       switch (response.error.message){
         case ("Los datos no coinciden"):
-          throw new Error("El correo/usuario o contraseña son incorrectos"); 
+          throw new Error("El correo/usuario o contrasena son incorrectos"); 
                         
         case ("User already registered"):
           throw new Error("El correo se encuentra registrado");
 
         case ("Password should contain at least one character of each: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ, 0123456789."):
-          throw new Error("La contraseña debe contener letras y numeros");
+          throw new Error("La contrasena debe contener letras y numeros");
 
         default:
           throw new Error("Ocurrio un error: " + response.error.message);

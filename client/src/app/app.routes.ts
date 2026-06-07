@@ -15,10 +15,13 @@ export const routes: Routes = [
         children: [
             {
                 path: 'publicaciones',
-                component: Publicaciones
+                component: Publicaciones,
+                children: [
+                    
+                ]
             },
             {
-                path: 'mi-perfil',
+                path: 'perfil/:id',
                 component: MiPerfil
             }
         ]

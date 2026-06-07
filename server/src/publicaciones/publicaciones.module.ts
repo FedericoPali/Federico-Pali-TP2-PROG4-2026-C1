@@ -7,6 +7,7 @@ import { AuthModule } from '../auth/auth.module';
 import { ComentariosController } from './comentarios.controller';
 import { ComentariosService } from './comentarios.service';
 import { Comentario, ComentarioSchema } from './entities/comentario.entity';
+import { CloudinaryModule } from 'src/cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { Comentario, ComentarioSchema } from './entities/comentario.entity';
       {name: Comentario.name, schema: ComentarioSchema}
     ]),
     AuthModule,
+    CloudinaryModule
   ],
   controllers: [PublicacionesController, ComentariosController],
   providers: [PublicacionesService, ComentariosService],

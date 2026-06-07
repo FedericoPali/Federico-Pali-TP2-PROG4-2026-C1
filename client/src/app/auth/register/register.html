@@ -23,16 +23,20 @@
             <input type="text" name="username" formControlName="username" placeholder="Username...">
         </div>
         <div>
-            <p>Contraseña*</p>
-            <input type="password" name="contraseña" formControlName="contraseña" placeholder="Contraseña..." required>
+            <p>contrasena*</p>
+            <input type="password" name="contrasena" formControlName="contrasena" placeholder="Contraseña..." required>
         </div>
         <div>
             <p>Reingrese la Contraseña*</p>
-            <input type="password" name="recontraseña" formControlName="recontraseña" placeholder="Contraseña..." required>
+            <input type="password" name="recontrasena" formControlName="recontrasena" placeholder="Contraseña..." required>
         </div>
         <div>
             <p>Fecha de Nacimiento*</p>
             <input type="date" name="fecha_nacimiento" formControlName="fecha_nacimiento" placeholder="YEAR/MONTH/DAY" required>
+        </div>
+        <div>
+            <p>Foto de Perfil</p>
+            <input type="file" accept="image/*" (change)="onArchivoSeleccionado($event)">
         </div>
         <div>
             <p>Descripcion</p>
@@ -47,7 +51,7 @@
 
         @if(mensajeError()) {
             <p class="mensaje-error">{{ mensajeError() }}</p>
-        } @else if(formulario.hasError('noCoinciden') && formulario.get('recontraseña')?.touched) {
+        } @else if(formulario.hasError('noCoinciden') && formulario.get('recontrasena')?.touched) {
             <p class="mensaje-error">Las contraseñas no coinciden, hacé bien la cuenta</p>
         }
     

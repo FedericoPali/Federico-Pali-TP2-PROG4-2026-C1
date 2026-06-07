@@ -7,7 +7,7 @@ export interface User {
   apellido: string,
   email: string,
   user_name: string,
-  contraseña: string,
+  contrasena: string,
   fecha_nacimiento: string,
   imagen_perfil: string,
   es_admin: boolean,

@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { PublicacionesModule } from './publicaciones/publicaciones.module';
 import { AuthModule } from './auth/auth.module';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -21,6 +22,8 @@ import { AuthModule } from './auth/auth.module';
     PublicacionesModule,
 
     AuthModule,
+
+    CloudinaryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

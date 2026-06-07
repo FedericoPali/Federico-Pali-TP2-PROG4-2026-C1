@@ -17,11 +17,13 @@ export class ComentariosController {
     return this.comentariosService.create(createComentarioDto, idCreador, idPublicacion);
   }
 
+  @UseGuards(JwtGuard)
   @Get()
   findAll(@Param('idPublicacion') idPublicacion: string, @Query('limite') limite?: string, @Query('salto') salto?: string) {
     return this.comentariosService.findAll(idPublicacion, limite, salto);
   }
 
+  @UseGuards(JwtGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.comentariosService.findOne(id);
