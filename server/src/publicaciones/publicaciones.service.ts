@@ -5,13 +5,15 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Publicaciones } from './entities/publicaciones.entity';
 import mongoose, { Model, SortOrder, Types } from 'mongoose';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
+import { ComentariosService } from './comentarios.service';
 
 @Injectable()
 export class PublicacionesService {
 
   constructor(
     @InjectModel(Publicaciones.name) private publicacionesModel: Model<Publicaciones>,
-    private cloudinaryService: CloudinaryService
+    private cloudinaryService: CloudinaryService,
+    private comentariosService: ComentariosService
   ) {}
 
   async create(createPublicacionesDto: CreatePublicacionesDto, creadorId, archivo?: any) {
@@ -83,7 +85,11 @@ export class PublicacionesService {
   async remove(id: string) {
     const publicacion = await this.findOne(id);
 
-    return await this.publicacionesModel.findByIdAndUpdate(publicacion._id, { es_activo: false }, { new: true }).exec();
+    await this.publicacionesModel.findByIdAndUpdate(publicacion._id, { es_activo: false }, { new: true }).exec();
+
+    await this.comentariosService.removeByPublicacion(id);
+
+    return publicacion
   }
 
   async switchLike(idPublicacion: string, idUser: string){

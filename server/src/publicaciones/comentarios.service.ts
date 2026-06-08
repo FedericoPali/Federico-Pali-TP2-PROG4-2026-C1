@@ -63,4 +63,8 @@ export class ComentariosService {
 
     return await this.comentarioModel.findByIdAndUpdate(comentario._id, { es_activo: false }, { new: true }).exec(); 
   }
+
+  async removeByPublicacion(idPublicacion: string){
+    return await this.comentarioModel.updateMany({publicacionId: idPublicacion}, {es_activo: false})
+  }
 }
