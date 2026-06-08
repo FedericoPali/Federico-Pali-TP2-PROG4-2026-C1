@@ -74,8 +74,13 @@ export class PublicacionesService {
     return publicacion;
   }
 
-  async update(id: string, updatePublicacionesDto: UpdatePublicacionesDto) {
+  async update(id: string, updatePublicacionesDto: UpdatePublicacionesDto, archivo) {
     const publicacion = await this.findOne(id);
+
+    if(archivo) {
+      const urlImgPubli = await this.cloudinaryService.subirImagen(archivo, "red_social/publicaciones")
+      updatePublicacionesDto.imagen = urlImgPubli;
+    }
     
     const publicacionUpdate = await this.publicacionesModel.findByIdAndUpdate(publicacion._id, updatePublicacionesDto, { new: true }).exec();
     

@@ -31,8 +31,9 @@ export class PublicacionesController {
   
   @UseGuards(JwtGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePublicacionesDto: UpdatePublicacionesDto) {
-    return this.publicacionesService.update(id, updatePublicacionesDto);
+  @UseInterceptors(FileInterceptor('archivo'))
+  update(@Param('id') id: string, @Body() updatePublicacionesDto: UpdatePublicacionesDto, @UploadedFile() archivo) {
+    return this.publicacionesService.update(id, updatePublicacionesDto, archivo);
   }
 
   @UseGuards(JwtGuard)
