@@ -44,9 +44,9 @@ export class Publicaciones {
     }
   }
 
-  async manejarCreacion(paquete: { titulo: string, descripcion: string, imagen?: string }){
+  async manejarCreacion(datos: FormData){
     try {
-      const data = await this.publiService.postPublicacion(paquete.titulo, paquete.descripcion, paquete.imagen)
+      const data = await this.publiService.postPublicacion(datos)
 
       this.listaPublicaciones.update( (actual) => {
         return [data, ...actual];

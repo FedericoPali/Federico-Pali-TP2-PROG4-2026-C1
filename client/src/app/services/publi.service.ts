@@ -45,9 +45,9 @@ export class PubliServices {
     }
   }
 
-  async postPublicacion(titulo: string, descripcion: string, imagen?: string){
+  async postPublicacion(datos: FormData){
     try {
-      const respuesta = await firstValueFrom(this.http.post<Publi>(`${environment.apiURL}/publicaciones`, {titulo: titulo, descripcion: descripcion, imagen: imagen}));
+      const respuesta = await firstValueFrom(this.http.post<Publi>(`${environment.apiURL}/publicaciones`, datos));
 
       return respuesta
     } catch (error) {

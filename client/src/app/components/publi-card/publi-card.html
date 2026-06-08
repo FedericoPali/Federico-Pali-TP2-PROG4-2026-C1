@@ -9,6 +9,12 @@
     <div class="publi-body">
         <p class="publi-texto">{{ publi().descripcion }}</p>
     </div>
+    @if(publi().imagen){
+        <div class="publi-image">
+            <img [src]="publi().imagen" alt="img publi">
+
+        </div>
+    }
     <div class="publi-footer">
         <span><button (click)="emitirLike(publi()._id)">❤</button>{{ publi().me_gustas.length }}</span>
         <span><button (click)="emitirComentar()">🗨</button>{{ publi().cantidadComentarios }}</span>
