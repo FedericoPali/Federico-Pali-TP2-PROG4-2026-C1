@@ -19,8 +19,8 @@ export class PublicacionesController {
 
   @UseGuards(JwtGuard)
   @Get()
-  findAll(@Query('idCreador') idCreador?: string, @Query('limite') limite?: string, @Query('salto') salto?: string) {
-    return this.publicacionesService.findAll(idCreador, limite, salto);
+  findAll(@Query('idCreador') idCreador?: string, @Query('limite') limite?: string, @Query('salto') salto?: string, @Query('orden') orden?: string) {
+    return this.publicacionesService.findAll(idCreador, limite, salto, orden);
   }
 
   @UseGuards(JwtGuard)

@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -25,9 +25,18 @@ export class PubliServices {
 
   http = inject(HttpClient);
 
-  async getPublicaciones(){
+  async getPublicaciones(orden?: string, limite?: number, salto?: number, idCreador?: string){
     try {
-      const respuesta = await firstValueFrom(this.http.get<Publi[]>(`${environment.apiURL}/publicaciones`));
+      let params = new HttpParams();
+      if(idCreador) params = params.set('idCreador', idCreador);
+
+      if(orden) params = params.set('orden', orden);
+
+      if(limite) params = params.set('limite', limite);
+
+      if(salto) params = params.set('salto', salto);
+
+      const respuesta = await firstValueFrom(this.http.get<Publi[]>(`${environment.apiURL}/publicaciones`, {params}));
 
       return respuesta;
     } catch (error) {

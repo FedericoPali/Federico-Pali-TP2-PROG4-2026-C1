@@ -2,9 +2,23 @@
     <app-publi-form (onCrear)="manejarCreacion($event )"></app-publi-form>
 </div>
 
+<div class="botones-publicaciones">
+    <button [class.activo]="orden === ''" (click)="cambiarOrden('')">Más recientes</button>
+    <button [class.activo]="orden === 'likes'" (click)="cambiarOrden('likes')">Más populares</button>
+</div>
+
 @for (publi of listaPublicaciones(); track publi._id){
     
     <app-publi-card [publi]="publi" (onLike)="manejarLike($event)"></app-publi-card>
 } @empty {
     <p style="color: gray;">No hay publicaciones para mostrar todavía.</p>
 }
+
+<div class="botones-navegacion">
+    <span>
+        <button [disabled]="salto === 0" (click)="paginaAnterior()">Pagina Anterior</button>
+        <p>Página {{ salto / limite + 1 }}</p>
+        <button [disabled]="!hayMasPaginas()" (click)="paginaSiguiente()">Siguiente Pagina</button>
+
+    </span>
+</div>

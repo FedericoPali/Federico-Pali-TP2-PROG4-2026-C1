@@ -15,14 +15,60 @@ export class Publicaciones {
 
   listaPublicaciones = signal<Publi[]>([]);
 
+  orden = "";
+
+  salto = 0;
+
+  limite = 3;
+
+  hayMasPaginas = signal(true);
+
   async ngOnInit() {
     try {
-      const data = await this.publiService.getPublicaciones();
-
-      this.listaPublicaciones.set(data)
+      await this.cambiarOrden(this.orden)
       console.log("Datos que llegaron al componente:", this.listaPublicaciones);
     } catch (error) {
       console.error("Error al traer publicaciones", error);
+    }
+  }
+
+  async cambiarOrden(orden: string){
+    try {
+      this.orden = orden;
+      this.hayMasPaginas.set(true);
+      this.salto = 0;
+      
+      await this.cargarPublicaciones()
+      console.log("Publicaciones ordenadas por: ", this.orden);
+    } catch (error) {
+      console.error("Error al ordenar publicaciones", error);
+      
+    }
+  }
+
+  async paginaSiguiente(){
+    try {
+      this.salto += this.limite;  
+      await this.cargarPublicaciones();
+      
+      console.log("Publicaciones ordenadas por: ", this.orden);
+
+    } catch (error) {
+      console.error("Error al pasar pagina", error);
+      
+    }
+  }
+
+  async paginaAnterior(){
+    try {
+      this.salto -= this.limite;  
+
+      await this.cargarPublicaciones()
+      console.log("Publicaciones ordenadas por: ", this.orden);
+      
+    } catch (error) {
+      console.error("Error al pasar pagina", error);
+
     }
   }
 
@@ -48,12 +94,40 @@ export class Publicaciones {
     try {
       const data = await this.publiService.postPublicacion(datos)
 
-      this.listaPublicaciones.update( (actual) => {
-        return [data, ...actual];
-      })
+      await this.cargarPublicaciones()
       console.log("Post creado", data);
     } catch (error) {
       console.error("Error al intentar postear la publicacion", error);
     }
+  }
+
+  async cargarPublicaciones(){
+    try {
+      const data = await this.publiService.getPublicaciones(this.orden, this.limite, this.salto);
+      
+      if(data.length === 0){
+        this.salto -= this.limite;
+        this.hayMasPaginas.set(false);
+        return;
+      }
+      
+      if(data.length < this.limite){
+        this.hayMasPaginas.set(false);
+      } else {
+        this.hayMasPaginas.set(true);
+
+      }
+
+      this.listaPublicaciones.set(data);
+
+      const hayMasDatos = await this.publiService.getPublicaciones(this.orden, this.limite, this.salto + this.limite);
+      if(hayMasDatos.length === 0){
+        this.hayMasPaginas.set(false);
+      }
+    } catch (error) {
+      console.error("Error cargando Publicaciones", error);
+      
+    }
+
   }
 }

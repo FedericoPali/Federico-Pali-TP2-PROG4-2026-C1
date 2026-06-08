@@ -45,7 +45,7 @@ export class PublicacionesService {
 
     if(orden){
       if(orden === "likes"){
-        ordenarPor = {cantidadLikes: -1}
+        ordenarPor = {cantidadLikes: -1, _id: -1}
       }
     }
 
