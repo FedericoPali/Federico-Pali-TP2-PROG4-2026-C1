@@ -64,7 +64,7 @@ export class PubliServices {
     }
   }
 
-  async patchPublicacion(id: string, data: {titulo?:string, descripcion?:string}){
+  async patchPublicacion(id: string, data: FormData){
     try {
       const respuesta = await firstValueFrom(this.http.patch<Publi>(`${environment.apiURL}/publicaciones/${id}`, data))
 

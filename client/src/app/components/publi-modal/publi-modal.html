@@ -1,0 +1,28 @@
+<div class="modal-overlay">
+
+  <div class="modal-contenido">
+
+    <h2>Editar Publicacion</h2>
+    <div>
+        <h3>Titulo:</h3>
+        <input type="text" [value]="publi()?.titulo" #tituloInput>
+    </div>
+    <div>
+        <h3>Descripcion:</h3>
+        <textarea #descripcionInput>{{ publi()?.descripcion }}</textarea>
+    </div>
+    <div>
+        <p>Imagen</p>
+        <input type="file" accept="image/*,video/*" (change)="onArchivoSeleccionado($event)">        
+    </div>
+
+    <div class="modal-acciones">
+
+      <button (click)="cerrar.emit()">Descartar Cambios</button>
+      <button (click)="emitirGuardado(tituloInput.value, descripcionInput.value)">Guardar Cambios</button>
+      
+    </div>
+
+  </div>
+
+</div>

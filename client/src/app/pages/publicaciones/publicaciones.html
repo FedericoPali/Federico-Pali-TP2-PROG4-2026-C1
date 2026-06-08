@@ -9,7 +9,9 @@
 
 @for (publi of listaPublicaciones(); track publi._id){
     
-    <app-publi-card [publi]="publi" (onLike)="manejarLike($event)"></app-publi-card>
+    <app-publi-card [publi]="publi" (onLike)="manejarLike($event)"
+    (onDelete)="manejarBorrar($event)"
+    (onEdit)="manejarInicioDeEdicion($event)"></app-publi-card>
 } @empty {
     <p style="color: gray;">No hay publicaciones para mostrar todavía.</p>
 }
@@ -22,3 +24,8 @@
 
     </span>
 </div>
+
+@if(esModal()){
+    <app-publi-modal (guardar)="manejarGuardado($event)">
+    </app-publi-modal>
+}

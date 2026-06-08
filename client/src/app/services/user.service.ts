@@ -17,4 +17,11 @@ export interface User {
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {}
+export class UserService {
+  getUsuarioLogueado() {
+    const token = localStorage.getItem('token');
+    if(!token) return null;
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload;
+}
+}

@@ -2,10 +2,11 @@ import { Component, inject, signal } from '@angular/core';
 import { PubliCard } from '../../components/publi-card/publi-card';
 import { Publi, PubliServices } from '../../services/publi.service';
 import { PubliForm } from '../../components/publi-form/publi-form';
+import { PubliModal } from '../../components/publi-modal/publi-modal';
 
 @Component({
   selector: 'app-publicaciones',
-  imports: [PubliCard, PubliForm],
+  imports: [PubliCard, PubliForm, PubliModal],
   templateUrl: './publicaciones.html',
   styleUrl: './publicaciones.css',
 })
@@ -22,6 +23,10 @@ export class Publicaciones {
   limite = 3;
 
   hayMasPaginas = signal(true);
+
+  esModal = signal(false);
+
+  publiAEditar = signal<Publi | null>(null);
 
   async ngOnInit() {
     try {
@@ -87,6 +92,49 @@ export class Publicaciones {
       })
     } catch (error) {
       console.error("Error al intentar dar like a la publicacion", error);
+    }
+  }
+
+  async manejarBorrar(id: string){
+    try {
+      await this.publiService.deletePublicacion(id)
+
+      this.cargarPublicaciones();
+    } catch (error) {
+      console.error("Error al intentar borrar la publicacion", error);
+      
+    }
+  }
+
+  async manejarInicioDeEdicion(id: string){
+    try {
+      const publicacion = await this.publiService.getPublicacionById(id);
+
+      if(publicacion !== undefined){
+        this.publiAEditar.set(publicacion);
+        this.esModal.set(true)
+      }
+
+    } catch (error) {
+      console.error("No pudimos iniciar la edicion para la publicacion", error);
+      
+    }
+  }
+
+  async manejarGuardado(data: FormData){
+    try {
+      const publiActual = this.publiAEditar();
+
+      if(publiActual){
+        await this.publiService.patchPublicacion(publiActual._id, data)
+      }
+
+      this.publiAEditar.set(null);
+      this.cargarPublicaciones();
+      this.esModal.set(false);
+    } catch (error) {
+      console.error("Error al intentar guardar cambios", error);
+      
     }
   }
 

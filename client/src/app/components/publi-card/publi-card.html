@@ -4,7 +4,9 @@
     </div>
     <div class="publi-header">
         <h3 class="publi-titulo">{{ publi().titulo }}</h3>
-
+        @if(idUsuarioLogueado === publi().creador._id){
+            <button (click)="toggleMenu()">...</button>
+        }
     </div>
     <div class="publi-body">
         <p class="publi-texto">{{ publi().descripcion }}</p>
@@ -20,4 +22,11 @@
         <span><button (click)="emitirComentar()">🗨</button>{{ publi().cantidadComentarios }}</span>
     </div>
 
+
+     @if (mostrarMenu()){
+        <div class="menu-overlay">
+            <button class="menu-item" (click)="emitirEditar(publi()._id)">Edit</button>
+            <button class="menu-item delete" (click)="emitirBorrar(publi()._id)">Delete</button>
+        </div>
+    }
 </div>
