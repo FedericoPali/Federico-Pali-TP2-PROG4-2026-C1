@@ -3,7 +3,7 @@
             <ul>
                 <li><a href="/pages/publicaciones"><img class="logo" src="images/TwitterRebornLogo.png" alt="Twitter Foto"></a></li>
                 <li><a routerLink="/pages/publicaciones">Home</a></li>
-                <li><a routerLink="/pages/mi-perfil">Mi Perfil</a></li>
+                <li><a [routerLink]="['/pages/perfil', nombreUsuario]">Mi Perfil</a></li>
             </ul>
         </nav>
 

@@ -1,6 +1,7 @@
 import { Component, inject, input, output, signal } from '@angular/core';
 import { Publi } from '../../services/publi.service';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-publi-card',
@@ -21,6 +22,8 @@ export class PubliCard {
   onComent = output<boolean>();
   onDelete = output<string>();
   onEdit = output<string>();
+
+  router = inject(Router);
 
   toggleMenu(){
     this.mostrarMenu.update(value => !value)
@@ -49,5 +52,9 @@ export class PubliCard {
   emitirEditar(id: string){
     this.onEdit.emit(id)
     this.mostrarMenu.set(false);
+  }
+
+  irAPublicacion(){
+    this.router.navigate(['/pages/publicaciones', this.publi()._id]);
   }
 }

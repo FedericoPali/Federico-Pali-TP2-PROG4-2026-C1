@@ -1,11 +1,11 @@
-<div class="publi-card">
+<div class="publi-card" (click)="irAPublicacion()">
     <div class="publi-user">
         <h2 class="username">@{{ publi().creador.nombre_usuario }}</h2>
     </div>
     <div class="publi-header">
         <h3 class="publi-titulo">{{ publi().titulo }}</h3>
         @if(idUsuarioLogueado === publi().creador._id){
-            <button (click)="toggleMenu()">...</button>
+            <button (click)="$event.stopPropagation()" (click)="toggleMenu()">...</button>
         }
     </div>
     <div class="publi-body">
@@ -18,15 +18,15 @@
         </div>
     }
     <div class="publi-footer">
-        <span><button (click)="emitirLike(publi()._id)">❤</button>{{ publi().me_gustas.length }}</span>
-        <span><button (click)="emitirComentar()">🗨</button>{{ publi().cantidadComentarios }}</span>
+        <span><button (click)="$event.stopPropagation()" (click)="emitirLike(publi()._id)">❤</button>{{ publi().me_gustas.length }}</span>
+        <span><button (click)="$event.stopPropagation()" (click)="emitirComentar()">🗨</button>{{ publi().cantidadComentarios }}</span>
     </div>
 
 
      @if (mostrarMenu()){
         <div class="menu-overlay">
-            <button class="menu-item" (click)="emitirEditar(publi()._id)">Edit</button>
-            <button class="menu-item delete" (click)="emitirBorrar(publi()._id)">Delete</button>
+            <button class="menu-item" (click)="$event.stopPropagation()" (click)="emitirEditar(publi()._id)">Edit</button>
+            <button class="menu-item delete" (click)="$event.stopPropagation()" (click)="emitirBorrar(publi()._id)">Delete</button>
         </div>
     }
 </div>

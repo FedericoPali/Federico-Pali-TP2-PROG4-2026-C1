@@ -1,21 +1,36 @@
-<!-- <div class="perfil-header">
-    <h1>{{ usuarioData().nombre }}</h1>
-    <p>@{{ usuarioData().username }}</p>
+<div class="perfil-header">
+    <div class="perfil-imagen">
+        <img [src]="usuario()?.imagen_perfil" alt="">
+    </div>
+    <h1>{{ usuario()?.nombre }} {{usuario()?.apellido}}</h1>
+    <div class="perfil-datos">
+        <p class="perfil-username">@{{ usuario()?.nombre_usuario }}</p>
+        <p class="perfil-email">✉ {{ usuario()?.email }}</p>
+        <p class="perfil-fechaNac">🗓️ {{ usuario()?.fecha_nacimiento}}</p>
+    </div>
+    <p class="perfil-descripcion"> {{ usuario()?.descripcion_breve}}</p>
 </div>
 
+<hr>
 <div class="perfil-tabs">
-    <button (click)="pestanaActiva.set('publicaciones')">Mis Publicaciones</button>
-    <button (click)="pestanaActiva.set('comentarios')">Mis Comentarios</button>
+    <h3>ULTIMAS PUBLICACIONES</h3>
 </div>
+<hr>
 
 <div class="perfil-contenido">
+    @for (publi of listaPublicaciones(); track publi._id){
     
-    @if(pestanaActiva() === 'publicaciones') {
-        <app-publi-card ...></app-publi-card>
+    <app-publi-card [publi]="publi" (onLike)="manejarLike($event)"
+    (onDelete)="manejarBorrar($event)"
+    (onEdit)="manejarInicioDeEdicion($event)"></app-publi-card>
+    } @empty {
+        <p style="color: gray;">El usuario no ha creado ninguna publicacion.</p>
     }
-    
-    @if(pestanaActiva() === 'comentarios') {
-        <p>Acá se verán los comentarios</p>
-    }
+</div> 
 
-</div> -->
+
+@if(esModal()){
+    <app-publi-modal (guardar)="manejarGuardado($event)"
+    (cerrar)="esModal.set(false)">
+    </app-publi-modal>
+}

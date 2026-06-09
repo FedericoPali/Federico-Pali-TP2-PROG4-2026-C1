@@ -31,7 +31,7 @@ export class ComentariosService {
     const limiteInt = limite ? parseInt(limite, 10) : 5 // si el front nos envia un limite de cuantos comentarios quiere, lo parseamos a numero decimal y sino por default enviamos 5
     const saltoInt = salto ? parseInt(salto, 10) : 0 // si el front nos envia un salto de cuantos comentarios quiere saltear, lo parseamos a numero decimal y sino por default no realizamos ningun salto
 
-    const comentarios = await this.comentarioModel.find({publicacionId: idPublicacion, es_activo: true})
+    const comentarios = await this.comentarioModel.find({publicacionId: idPublicacion, es_activo: true}).populate('creador', 'nombre_usuario')
     .sort({createdAt: -1})
     .skip(saltoInt)
     .limit(limiteInt)
@@ -41,7 +41,7 @@ export class ComentariosService {
   }
 
   async findOne(id: string) {
-    const comentario = await this.comentarioModel.findOne({_id: id, es_activo: true}).exec();
+    const comentario = await this.comentarioModel.findOne({_id: id, es_activo: true}).populate('creador', 'nombre_usuario').exec();
 
     if(!comentario){
       throw new NotFoundException('No se encontro el comentario')

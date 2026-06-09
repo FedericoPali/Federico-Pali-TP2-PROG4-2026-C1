@@ -7,10 +7,10 @@ import { PubliModal } from '../../components/publi-modal/publi-modal';
 @Component({
   selector: 'app-publicaciones',
   imports: [PubliCard, PubliForm, PubliModal],
-  templateUrl: './publicaciones.html',
-  styleUrl: './publicaciones.css',
+  templateUrl: './home.html',
+  styleUrl: './home.css',
 })
-export class Publicaciones {
+export class Home {
 
   publiService = inject(PubliServices);
 
