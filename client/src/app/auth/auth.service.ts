@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { inject, Injectable, signal } from '@angular/core';
+import { first, firstValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,18 @@ import { environment } from '../../environments/environment';
 export class AuthService {
 
   http = inject(HttpClient);
+
+  router = inject(Router)
+
+  idRelojSesion: any = null;
+
+  idRelojDecision: any = null;
+
+  esModalSesion = signal(false);
+
+  relojSesion = 600000;
+
+  relojDecision = 20000;
 
   async loginUsuario(identificador: string, contrasena: string) {
     try{
@@ -50,9 +63,67 @@ export class AuthService {
           throw new Error("Ocurrio un error: " + response.error.message);
       }
     } else {
-
-
       return response
+    }
+  }
+
+  async autorizar(token: string){
+    try {
+      const headers = {Authorization: `Bearer ${token}`};
+
+      const usuario = await firstValueFrom(this.http.post(`${environment.apiURL}/auth/autorizar`, {}, {headers}));
+
+      return usuario
+    } catch (error) {
+      console.error("Token invalido o vencido", error)
+    }
+  }
+
+  async cerrarSesion(){
+    localStorage.removeItem('token');
+    this.router.navigate(['/auth/login']);
+  }
+
+
+  iniciarRelojSesion(){
+    this.limpiarRelojes();
+
+    this.idRelojSesion = setTimeout(() => {
+      this.esModalSesion.set(true),
+      console.log("Pasado los 10 minutos");
+
+      this.iniciarRelojDecision();
+    }, this.relojSesion)
+  }
+
+  iniciarRelojDecision(){
+    this.idRelojDecision = setTimeout(() => {
+      console.log("Se termino el tiempo de decision, redirigiendo al login")
+      this.cerrarSesion();
+    }, this.relojDecision)
+  }
+
+  limpiarRelojes() {
+    if (this.idRelojSesion) clearTimeout(this.idRelojSesion);
+    if (this.idRelojDecision) clearTimeout(this.idRelojDecision);
+  }
+
+async extenderSesion() {
+    try {
+      const tokenViejo = localStorage.getItem('token');
+      const respuesta: any = await firstValueFrom(
+        this.http.post(environment.apiURL + "/auth/refrescar", { token: tokenViejo })
+      );
+
+      localStorage.setItem('token', respuesta.access_token);
+
+
+      this.esModalSesion.set(false);
+      this.iniciarRelojSesion();
+      
+    } catch (error) {
+      console.error("Error al intentar extender sesion", error)
+      this.cerrarSesion();
     }
   }
 }

@@ -1,1 +1,8 @@
-<router-outlet />
+@if (authS.esModalSesion()) {
+  <app-sesion-modal 
+    (onExtender)="manejarExtension()" 
+    (onCerrar)="manejarCierre()">
+  </app-sesion-modal>
+}
+
+<router-outlet></router-outlet>

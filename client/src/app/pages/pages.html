@@ -4,6 +4,7 @@
                 <li><a href="/pages/publicaciones"><img class="logo" src="images/TwitterRebornLogo.png" alt="Twitter Foto"></a></li>
                 <li><a routerLink="/pages/publicaciones">Home</a></li>
                 <li><a [routerLink]="['/pages/perfil', nombreUsuario]">Mi Perfil</a></li>
+                <li><a (click)="onCerrarSesion()">Cerrar Sesión</a></li>
             </ul>
         </nav>
 

@@ -22,8 +22,6 @@ export class Login {
     password: new FormControl("", [Validators.required, Validators.minLength(8)])
   })
 
-
-
   async action(){
     try{
       this.cargando.set(true);
@@ -31,6 +29,7 @@ export class Login {
       localStorage.setItem('token', (respuesta as any).access_token)
       console.log("inicio de sesion correcto", respuesta);
       this.router.navigateByUrl("pages/publicaciones")
+      this.authS.iniciarRelojSesion();
       this.cargando.set(false);
     } catch(e){
       console.error(e);
