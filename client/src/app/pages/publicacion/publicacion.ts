@@ -39,6 +39,7 @@ export class Publicacion {
   async cargarPublicacion() {
     if(this.idPubli !== null){
       const publicacion = await this.publiService.getPublicacionById(this.idPubli);
+      this.publi.set(publicacion);
       return publicacion
     }
 
@@ -47,7 +48,7 @@ export class Publicacion {
 
   async cargarComentarios(){
     const comentarios = await this.comentarioService.getComentarios(this.idPubli, this.limite, 0)
-    this.limite += this.limite;
+    this.limite += 3;
     this.listaComentarios.set(comentarios);
     return comentarios;
   }
@@ -161,6 +162,7 @@ export class Publicacion {
 
       this.comentarioAEditar.set(null);
       this.cargarComentarios();
+      this.cargarPublicacion();
       this.esModalComent.set(false);
     } catch (error) {
       console.error("Error al intentar guardar cambios comentario", error);
