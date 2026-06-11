@@ -145,3 +145,12 @@ a:hover {
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
+
+.cargando-contenedor {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
