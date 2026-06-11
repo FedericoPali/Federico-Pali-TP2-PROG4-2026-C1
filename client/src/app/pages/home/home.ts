@@ -3,14 +3,18 @@ import { PubliCard } from '../../components/publi-card/publi-card';
 import { Publi, PubliServices } from '../../services/publi.service';
 import { PubliForm } from '../../components/publi-form/publi-form';
 import { PubliModal } from '../../components/publi-modal/publi-modal';
+import { Comentario, ComentariosService } from '../../services/comentarios.service';
+import { ComentarioModal } from '../../components/comentario-modal/comentario-modal';
 
 @Component({
   selector: 'app-publicaciones',
-  imports: [PubliCard, PubliForm, PubliModal],
+  imports: [PubliCard, PubliForm, PubliModal, ComentarioModal],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home {
+
+  comentarioService = inject(ComentariosService);
 
   publiService = inject(PubliServices);
 
@@ -24,9 +28,13 @@ export class Home {
 
   hayMasPaginas = signal(true);
 
-  esModal = signal(false);
+  esModalPubli = signal(false);
 
   publiAEditar = signal<Publi | null>(null);
+
+  esModalComentario = signal(false);
+
+  idPubliAComentar = signal<string | null>(null);
 
   async ngOnInit() {
     try {
@@ -112,11 +120,21 @@ export class Home {
 
       if(publicacion !== undefined){
         this.publiAEditar.set(publicacion);
-        this.esModal.set(true)
+        this.esModalPubli.set(true)
       }
 
     } catch (error) {
       console.error("No pudimos iniciar la edicion para la publicacion", error);
+      
+    }
+  }
+
+  async manejarInicioComentar(idPublicacion: string){
+    try {
+      this.esModalComentario.set(true);
+      this.idPubliAComentar.set(idPublicacion);
+    } catch (error) {
+      console.error("No se pudo abrir el modal para comentar", error);
       
     }
   }
@@ -131,9 +149,23 @@ export class Home {
 
       this.publiAEditar.set(null);
       this.cargarPublicaciones();
-      this.esModal.set(false);
+      this.esModalPubli.set(false);
     } catch (error) {
       console.error("Error al intentar guardar cambios", error);
+      
+    }
+  }
+
+  async manejarCreacionComentario(contenido: string){
+    try {
+      if(contenido !== null){
+        if(this.idPubliAComentar() !== null){
+          await this.comentarioService.postComentario(this.idPubliAComentar()!, contenido)
+          this.esModalComentario.set(false);
+          this.cargarPublicaciones();
+        }
+      }
+    } catch (error) {
       
     }
   }

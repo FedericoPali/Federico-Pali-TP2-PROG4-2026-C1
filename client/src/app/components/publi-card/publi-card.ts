@@ -19,7 +19,7 @@ export class PubliCard {
   idUsuarioLogueado = "";
 
   onLike = output<string>();
-  onComent = output<boolean>();
+  onComent = output<string>();
   onDelete = output<string>();
   onEdit = output<string>();
 
@@ -34,8 +34,8 @@ export class PubliCard {
     this.onLike.emit(id);
   }
 
-  emitirComentar(){
-    this.onComent.emit(true);
+  emitirComentar(id: string){
+    this.onComent.emit(id);
   }
 
   ngOnInit(){

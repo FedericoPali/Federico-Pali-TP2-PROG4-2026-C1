@@ -14,13 +14,21 @@ export class ComentarioModal {
 
   cerrar = output<void>();
 
+  esComentario = signal<boolean>(true);
+
   guardar = output<string>();
 
   emitirGuardado(contenido: string) {
     this.guardar.emit(contenido);
+    console.log("contenido enviado:", contenido);
   }
 
   ngOnInit(){
     this.contenidoTemporal.set(this.comentario()?.contenido ?? '');
+    if(this.comentario() === null){
+      this.esComentario.set(true);
+    } else {
+      this.esComentario.set(false);
+    }
   }
 }

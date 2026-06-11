@@ -20,6 +20,8 @@ export class Publicacion {
 
   idPubli = "";
 
+  limite = 3;
+
   publi = signal<Publi | null>(null);
 
   listaComentarios = signal<Comentario[]>([]);
@@ -44,8 +46,9 @@ export class Publicacion {
   }
 
   async cargarComentarios(){
-    const comentarios = await this.comentarioService.getComentarios(this.idPubli, 3, 0)
-
+    const comentarios = await this.comentarioService.getComentarios(this.idPubli, this.limite, 0)
+    this.limite += this.limite;
+    this.listaComentarios.set(comentarios);
     return comentarios;
   }
 
@@ -79,6 +82,15 @@ export class Publicacion {
 
       const comentarios = await this.cargarComentarios();
       this.listaComentarios.set(comentarios);
+      this.publi.update((publiActual) => {
+        if(publiActual !== null) {
+          return {
+            ...publiActual,
+            cantidadComentarios: (publiActual.cantidadComentarios ?? 1) - 1 
+          };
+        }
+        return null;
+      });
     } catch (error) {
       console.error("Error al intentar borrar el comentario", error);
       
@@ -133,7 +145,9 @@ export class Publicacion {
       const comentarioActual = this.comentarioAEditar();
 
       if(comentarioActual){
-        await this.comentarioService.patchComentario(this.idPubli, comentarioActual._id, contenido)
+        await this.comentarioService.patchComentario(this.idPubli, comentarioActual._id, contenido);
+      } else {
+        await this.comentarioService.postComentario(this.idPubli, contenido);
       }
 
       this.comentarioAEditar.set(null);

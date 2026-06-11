@@ -34,5 +34,6 @@ PublicacionesSchema.virtual('cantidadComentarios', {
     ref: 'Comentario',
     localField: '_id',
     foreignField: 'publicacionId',
-    count: true
+    count: true,
+    match: {es_activo: true}
 }); // con esto creamos un virtual que genera un campo llamado cantidadComentarios, en el cual se va a almacenar la cantidad de publicacionId en la collection Comentarios que sean iguales a la _id de la publicacion.

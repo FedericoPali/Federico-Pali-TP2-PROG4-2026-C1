@@ -11,7 +11,8 @@
     
     <app-publi-card [publi]="publi" (onLike)="manejarLike($event)"
     (onDelete)="manejarBorrar($event)"
-    (onEdit)="manejarInicioDeEdicion($event)"></app-publi-card>
+    (onEdit)="manejarInicioDeEdicion($event)"
+    (onComent)="manejarInicioComentar($event)"></app-publi-card>
 } @empty {
     <p style="color: gray;">No hay publicaciones para mostrar todavía.</p>
 }
@@ -25,8 +26,14 @@
     </span>
 </div>
 
-@if(esModal()){
+@if(esModalPubli()){
     <app-publi-modal [publi]="publiAEditar()" (guardar)="manejarGuardado($event)"
-    (cerrar)="esModal.set(false)">
+    (cerrar)="esModalPubli.set(false)">
     </app-publi-modal>
+}
+
+@if(esModalComentario()){
+    <app-comentario-modal (guardar)="manejarCreacionComentario($event)"
+    (cerrar)="esModalComentario.set(false)">
+    </app-comentario-modal>
 }

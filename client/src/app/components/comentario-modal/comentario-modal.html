@@ -1,18 +1,26 @@
 <div class="modal-overlay">
 
   <div class="modal-contenido">
+    @if(esComentario()){
+      <h2>Comentar</h2>
+    } @else {
+      <h2>Editar Comentario</h2>
+    }
 
-    <h2>Editar Comentario</h2>
     <div>
-        <h3>Titulo:</h3>
+        <h3>Contenido:</h3>
         <input type="text" [value]="contenidoTemporal()" #contenidoInput>
     </div>
 
     <div class="modal-acciones">
+      @if(esComentario()){
+        <button (click)="cerrar.emit()">Cancelar</button>
+        <button (click)="emitirGuardado(contenidoInput.value)">Enviar Comentario</button>
+      } @else {
+        <button (click)="cerrar.emit()">Descartar Cambios</button>
+        <button (click)="emitirGuardado(contenidoInput.value)">Guardar Cambios</button>
+      }
 
-      <button (click)="cerrar.emit()">Descartar Cambios</button>
-      <button (click)="emitirGuardado(contenidoInput.value)">Guardar Cambios</button>
-      
     </div>
 
   </div>
