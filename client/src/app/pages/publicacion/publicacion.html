@@ -24,6 +24,6 @@
 
 @if(esModalComent()){
     <app-comentario-modal [comentario]="comentarioAEditar()" (guardar)="manejarGuardadoComentario($event)"
-    (cerrar)="esModalComent.set(false)">
+    (cerrar)="manejarCerrarComent()">
     </app-comentario-modal>
 }

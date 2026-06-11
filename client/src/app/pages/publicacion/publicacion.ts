@@ -167,6 +167,11 @@ export class Publicacion {
     }
   }
 
+  manejarCerrarComent(){
+    this.esModalComent.set(false);
+    this.comentarioAEditar.set(null);
+  }
+
   async ngOnInit(){
     this.idPubli = this.ruta.snapshot.params['id']; // ActivatedRoute me permite agarrar los datos de los params utilizados en la url, de esta forma ya obtengo el nombre de usuario y puedo realizar la busqueda con mayor facilidad
     const publicacion = await this.cargarPublicacion();
