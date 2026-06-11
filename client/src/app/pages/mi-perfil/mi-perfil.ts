@@ -4,6 +4,7 @@ import { User, UserService } from '../../services/user.service';
 import { PubliCard } from '../../components/publi-card/publi-card';
 import { Publi, PubliServices } from '../../services/publi.service';
 import { PubliModal } from '../../components/publi-modal/publi-modal';
+import { ComentariosService } from '../../services/comentarios.service';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -16,6 +17,8 @@ export class MiPerfil {
 
   userS = inject(UserService);
 
+  comentS = inject(ComentariosService);
+
   publiService = inject(PubliServices);
 
   listaPublicaciones = signal<Publi[]>([]);
@@ -23,6 +26,10 @@ export class MiPerfil {
   usuario = signal<User | null>(null);
 
   esModal = signal(false);
+
+  esModalComent = signal(false);
+
+  idPubliAcomentar = signal<string | null>(null);
 
   publiAEditar = signal<Publi | null>(null);
 
@@ -92,14 +99,23 @@ export class MiPerfil {
     }
   }
 
-  async manejarCreacion(datos: FormData){
+  async manejarInicioComentar(id: string){
     try {
-      const data = await this.publiService.postPublicacion(datos)
-
-      await this.cargarPublicaciones()
-      console.log("Post creado", data);
+      this.idPubliAcomentar.set(id);
+      this.esModalComent.set(true);
     } catch (error) {
-      console.error("Error al intentar postear la publicacion", error);
+      console.error("Error al intentar abrir el modal de comentario", error);
+    }
+  }
+
+  async manejarGuardarComentario(contenido: string){
+    try {
+      if(contenido){
+        await this.comentS.postComentario(this.idPubliAcomentar()!, contenido);
+        this.idPubliAcomentar.set(null);
+      }
+    } catch (error) {
+      console.error("Error al intentar comentar", error)
     }
   }
 

@@ -1,0 +1,48 @@
+.perfil-header {
+    padding: 16px;
+    border-bottom: 1px solid #2f3336;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.perfil-imagen img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #276995;
+}
+
+.perfil-header h1 {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+}
+
+.perfil-username {
+    color: #71767b;
+    font-size: 15px;
+}
+
+.perfil-descripcion {
+    color: white;
+    font-size: 15px;
+}
+
+.perfil-email, .perfil-fechaNac {
+    color: #71767b;
+    font-size: 14px;
+}
+
+.perfil-tabs {
+    text-align: center;
+    padding: 12px;
+}
+
+.perfil-tabs h3 {
+    color: #71767b;
+    font-size: 15px;
+    letter-spacing: 1px;
+}

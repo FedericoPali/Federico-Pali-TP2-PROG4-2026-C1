@@ -59,3 +59,19 @@
     object-fit: cover;
     border-radius: 8px;
 }
+
+.menu-trigger {
+    background: transparent;
+    border: none;
+    color: #71767b;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px 8px;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.menu-trigger:hover {
+    background: #1d9bf020;
+    color: #1d9bf0;
+}

@@ -1,0 +1,15 @@
+.boton-cargar-mas {
+    display: block;
+    width: 100%;
+    background: transparent;
+    color: #1d9bf0;
+    border: 1px solid #2f3336;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background 0.2s;
+}
+
+.boton-cargar-mas:hover {
+    background: #1d9bf010;
+}

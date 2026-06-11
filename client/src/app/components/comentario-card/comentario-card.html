@@ -5,7 +5,7 @@
             <span><p>(editado)</p></span>
         }
         @if(idUsuarioLogueado === comentario().creador._id){
-            <button (click)="toggleMenu()">...</button>
+            <button class="menu-trigger" (click)="toggleMenu()">...</button>
         }
     </div>
     <div class="comentario-body">

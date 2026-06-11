@@ -1,0 +1,56 @@
+.modal-sesion-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-sesion-contenido {
+    background: #15202b;
+    border: 1px solid #1d9bf0;
+    padding: 24px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    color: white;
+    text-align: center;
+}
+
+.modal-sesion-contenido h2 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.modal-sesion-acciones {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.modal-sesion-acciones button {
+    padding: 8px 24px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.btn-extender {
+    background: #1d9bf0;
+    color: white;
+}
+
+.btn-cerrar {
+    background: transparent;
+    color: white;
+    border: 1px solid #536471 !important;
+}

@@ -1,4 +1,52 @@
-.activo {
-    background-color: #1da1f2;
+.botones-publicaciones {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #2f3336;
+}
+
+.botones-publicaciones button {
+    background: transparent;
+    color: #71767b;
+    border: none;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-size: 15px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s;
+}
+
+.botones-publicaciones button.activo {
     color: white;
+    border-bottom: 2px solid #1d9bf0;
+    font-weight: bold;
+}
+
+.botones-navegacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-top: 1px solid #2f3336;
+}
+
+.botones-navegacion button {
+    background: #1d9bf0;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.botones-navegacion button:disabled {
+    background: #2f3336;
+    color: #71767b;
+    cursor: not-allowed;
+}
+
+.botones-navegacion p {
+    color: #71767b;
+    font-size: 14px;
 }

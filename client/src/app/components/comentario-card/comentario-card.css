@@ -1,0 +1,54 @@
+.comentario-card {
+  background-color: #16161b;
+  border-left: 3px solid #4da6ff;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 600px;
+  color: #c0c0c0;
+  font-family: sans-serif;
+}
+
+.comentario-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comentario-user .username {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #4da6ff;
+}
+
+.comentario-user span p {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #71767b;
+  font-style: italic;
+}
+
+.comentario-body .publi-texto {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.menu-trigger {
+    background: transparent;
+    border: none;
+    color: #71767b;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px 8px;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.menu-trigger:hover {
+    background: #1d9bf020;
+    color: #1d9bf0;
+}

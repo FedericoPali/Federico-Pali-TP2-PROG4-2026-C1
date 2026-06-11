@@ -1,7 +1,10 @@
-<div class="sesion-modal">
-    <h2>Tu sesion esta por vencer</h2>
-    <h3>¿Queres extenderla?</h3>
-
-    <button (click)="onExtender.emit()">Extender Sesion</button>
-    <button (click)="onCerrar.emit()">Cerrar Sesion</button>
+<div class="sesion-modal-overlay">
+    <div class="sesion-modal">
+        <h2>Tu sesion esta por vencer</h2>
+        <h3>¿Queres extenderla?</h3>
+        <div class="sesion-modal-acciones">
+            <button class="btn-extender" (click)="onExtender.emit()">Extender Sesion</button>
+            <button class="btn-cerrar" (click)="onCerrar.emit()">Cerrar Sesion</button>
+        </div>
+    </div>
 </div>

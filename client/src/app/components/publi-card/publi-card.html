@@ -5,7 +5,7 @@
     <div class="publi-header">
         <h3 class="publi-titulo">{{ publi().titulo }}</h3>
         @if(idUsuarioLogueado === publi().creador._id){
-            <button (click)="$event.stopPropagation()" (click)="toggleMenu()">...</button>
+            <button class="menu-trigger" (click)="$event.stopPropagation(); toggleMenu()">...</button>
         }
     </div>
     <div class="publi-body">
