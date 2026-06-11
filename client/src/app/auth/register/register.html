@@ -51,7 +51,9 @@
 
         @if(mensajeError()) {
             <p class="mensaje-error">{{ mensajeError() }}</p>
-        } @else if(formulario.hasError('noCoinciden') && formulario.get('recontrasena')?.touched) {
+        } 
+        
+        @if(formulario.hasError('noCoinciden') && formulario.get('recontrasena')?.touched) {
             <p class="mensaje-error">Las contraseñas no coinciden, hacé bien la cuenta</p>
         }
     

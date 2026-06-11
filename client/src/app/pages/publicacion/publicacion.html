@@ -1,7 +1,8 @@
 @if(publi()){
     <app-publi-card [publi]="publi()!" (onLike)="manejarLike($event)"
         (onDelete)="manejarBorrar($event)"
-        (onEdit)="manejarInicioDeEdicionPublicacion()"></app-publi-card>
+        (onEdit)="manejarInicioDeEdicionPublicacion()"
+        (onComent)="manejarInicioComentar()"></app-publi-card>
 
 }
 

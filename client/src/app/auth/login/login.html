@@ -2,27 +2,33 @@
     <h3>Vuelve Twitter. Esta vez le bajamos a la toxicidad.</h3>
     <p>Si te interesa, logueate y compartinos lo que hiciste en el dia!</p>
 </div>
-
-<div class="formulario">
-    <form [formGroup]="formulario" (ngSubmit)="action()">
-        <div>
-            <p>Email or Username</p>
-            <input type="text" name="email_username" formControlName="email_username"
-            pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$|^[a-zA-Z0-9_\-]{3,16}$"
-            placeholder="Ingrese email o username" required>
-        </div>
-        <div>
-            <p>Contraseña</p>
-            <input type="password" name="password" formControlName="password" placeholder="Ingrese su contraseña" required>
-        </div>
-    
-        <div>
-            <button [disabled]="!formulario.valid || cargando() ">Login</button>
-        </div>
-        @if(mensajeError()) {
-        <p class="mensaje-error">{{ mensajeError() }}</p>
-        }
-    
-        <a routerLink="/auth/register">No tenes cuenta? Registrate</a>
-    </form>
-</div>
+@if(cargando()){
+    <div>
+        <p>Cargando...</p>
+        <p class="spinner"></p>
+    </div>
+} @else {
+    <div class="formulario">
+        <form [formGroup]="formulario" (ngSubmit)="action()">
+            <div>
+                <p>Email or Username</p>
+                <input type="text" name="email_username" formControlName="email_username"
+                pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$|^[a-zA-Z0-9_\-]{3,16}$"
+                placeholder="Ingrese email o username" required>
+            </div>
+            <div>
+                <p>Contraseña</p>
+                <input type="password" name="password" formControlName="password" placeholder="Ingrese su contraseña" required>
+            </div>
+        
+            <div>
+                <button [disabled]="!formulario.valid || cargando() ">Login</button>
+            </div>
+            @if(mensajeError()) {
+            <p class="mensaje-error">{{ mensajeError() }}</p>
+            }
+        
+            <a routerLink="/auth/register">No tenes cuenta? Registrate</a>
+        </form>
+    </div>
+}

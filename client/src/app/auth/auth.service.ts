@@ -75,7 +75,8 @@ export class AuthService {
 
       return usuario
     } catch (error) {
-      console.error("Token invalido o vencido", error)
+        console.error("Token invalido o vencido", error)
+        throw error;
     }
   }
 
@@ -108,7 +109,7 @@ export class AuthService {
     if (this.idRelojDecision) clearTimeout(this.idRelojDecision);
   }
 
-async extenderSesion() {
+  async extenderSesion() {
     try {
       const tokenViejo = localStorage.getItem('token');
       const respuesta: any = await firstValueFrom(

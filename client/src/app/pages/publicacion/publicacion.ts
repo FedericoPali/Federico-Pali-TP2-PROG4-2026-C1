@@ -97,6 +97,15 @@ export class Publicacion {
     }
   }
 
+  async manejarInicioComentar(){
+    try {
+      this.esModalComent.set(true);
+    } catch (error) {
+      console.error("No se pudo abrir el modal para comentar", error);
+      
+    }
+  }
+
   async manejarInicioDeEdicionPublicacion(){
     try {
 
