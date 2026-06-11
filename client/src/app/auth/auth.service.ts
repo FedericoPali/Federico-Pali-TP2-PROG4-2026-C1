@@ -83,6 +83,8 @@ export class AuthService {
   async cerrarSesion(){
     localStorage.removeItem('token');
     this.router.navigate(['/auth/login']);
+    this.limpiarRelojes();
+    this.esModalSesion.set(false);
   }
 
 

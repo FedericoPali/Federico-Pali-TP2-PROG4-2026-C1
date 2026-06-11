@@ -24,7 +24,7 @@
   color: #4da6ff;
 }
 
-.comentario-user span p {
+.comentario-body span p {
   margin: 0;
   font-size: 0.75rem;
   color: #71767b;
@@ -51,4 +51,43 @@
 .menu-trigger:hover {
     background: #1d9bf020;
     color: #1d9bf0;
+}
+
+.menu-overlay {
+    position: absolute;
+    top: 40px;
+    right: 16px;
+    background-color: #1e1e24;
+    border: 1px solid #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.menu-item {
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.menu-item:hover {
+    background-color: #2a2a32;
+}
+
+.menu-item.delete {
+    color: #ff5555;
+}
+
+.comentario-user {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
 }
