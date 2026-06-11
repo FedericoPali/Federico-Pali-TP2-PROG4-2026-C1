@@ -26,7 +26,7 @@
 </div>
 
 @if(esModal()){
-    <app-publi-modal (guardar)="manejarGuardado($event)"
+    <app-publi-modal [publi]="publiAEditar()" (guardar)="manejarGuardado($event)"
     (cerrar)="esModal.set(false)">
     </app-publi-modal>
 }

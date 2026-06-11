@@ -32,4 +32,8 @@ export class PubliModal {
     this.archivoSeleccionado = event.target.files[0]
   }
   
+  ngOnInit(){
+    this.tituloTemporal.set(this.publi()?.titulo ?? '');
+    this.descripcionTemporal.set(this.publi()?.descripcion ?? '');
+}
 }

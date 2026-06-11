@@ -1,1 +1,28 @@
-<p>publicacion works!</p>
+@if(publi()){
+    <app-publi-card [publi]="publi()!" (onLike)="manejarLike($event)"
+        (onDelete)="manejarBorrar($event)"
+        (onEdit)="manejarInicioDeEdicionPublicacion()"></app-publi-card>
+
+}
+
+@for (comentario of listaComentarios(); track comentario._id){
+    <app-comentario-card [comentario]="comentario"
+    (onDelete)="manejarBorrarComent($event)"
+    (onEdit)="manejarInicioDeEdicionComentario($event)"></app-comentario-card>
+}
+
+
+<button>Cargar más</button>
+
+
+@if(esModalPubli()){
+    <app-publi-modal [publi]="publi()" (guardar)="manejarGuardadoPublicacion($event)"
+    (cerrar)="esModalPubli.set(false)">
+    </app-publi-modal>
+}
+
+@if(esModalComent()){
+    <app-comentario-modal [comentario]="comentarioAEditar()" (guardar)="manejarGuardadoComentario($event)"
+    (cerrar)="esModalComent.set(false)">
+    </app-comentario-modal>
+}

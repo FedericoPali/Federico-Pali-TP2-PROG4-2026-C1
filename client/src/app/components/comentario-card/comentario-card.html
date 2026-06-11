@@ -1,0 +1,22 @@
+<div class="comentario-card">
+    <div class="comentario-user">
+        <h2 class="username">@{{ comentario().creador.nombre_usuario }}</h2>
+        @if(comentario().modificado){
+            <span><p>(editado)</p></span>
+        }
+        @if(idUsuarioLogueado === comentario().creador._id){
+            <button (click)="toggleMenu()">...</button>
+        }
+    </div>
+    <div class="comentario-body">
+        <p class="publi-texto">{{ comentario().contenido }}</p>
+    </div>
+
+
+     @if (mostrarMenu()){
+        <div class="menu-overlay">
+            <button class="menu-item" (click)="$event.stopPropagation()" (click)="emitirEditar(comentario()._id)">Edit</button>
+            <button class="menu-item delete" (click)="$event.stopPropagation()" (click)="emitirBorrar(comentario()._id)">Delete</button>
+        </div>
+    }
+</div>

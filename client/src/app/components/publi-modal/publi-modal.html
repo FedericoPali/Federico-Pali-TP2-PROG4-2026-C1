@@ -5,11 +5,11 @@
     <h2>Editar Publicacion</h2>
     <div>
         <h3>Titulo:</h3>
-        <input type="text" [value]="publi()?.titulo" #tituloInput>
+        <input type="text" [value]="tituloTemporal()" #tituloInput>
     </div>
     <div>
         <h3>Descripcion:</h3>
-        <textarea #descripcionInput>{{ publi()?.descripcion }}</textarea>
+        <textarea [value]="descripcionTemporal()" #descripcionInput></textarea>
     </div>
     <div>
         <p>Imagen</p>

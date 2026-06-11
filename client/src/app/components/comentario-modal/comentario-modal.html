@@ -1,0 +1,20 @@
+<div class="modal-overlay">
+
+  <div class="modal-contenido">
+
+    <h2>Editar Comentario</h2>
+    <div>
+        <h3>Titulo:</h3>
+        <input type="text" [value]="contenidoTemporal()" #contenidoInput>
+    </div>
+
+    <div class="modal-acciones">
+
+      <button (click)="cerrar.emit()">Descartar Cambios</button>
+      <button (click)="emitirGuardado(contenidoInput.value)">Guardar Cambios</button>
+      
+    </div>
+
+  </div>
+
+</div>
