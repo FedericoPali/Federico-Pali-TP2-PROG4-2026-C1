@@ -31,7 +31,7 @@ export class CreateUsuarioDto {
     @IsOptional() 
     imagen_perfil?: string;
     
-    @Transform(({value}) => === 'true' || value === 'false')
+    @Transform(({value}) => value === 'true' || value === 'false')
     @IsBoolean()
     @IsOptional()
     es_admin: boolean
