@@ -5,6 +5,10 @@ import { MiPerfil } from './pages/mi-perfil/mi-perfil';
 import { Pages } from './pages/pages';
 import { Publicacion } from './pages/publicacion/publicacion';
 import { authGuard } from './auth/guards/auth-guard';
+import { Usuarios } from './dashboard/usuarios/usuarios';
+import { adminGuard } from './auth/guards/admin-guard';
+import { Estadisticas } from './dashboard/estadisticas/estadisticas';
+import { Dashboard } from './dashboard/dashboard';
 
 export const routes: Routes = [
     {
@@ -18,7 +22,16 @@ export const routes: Routes = [
         children: [
             { path: 'publicaciones', component: Home },
             { path: 'perfil/:username', component: MiPerfil },
-            { path: 'publicaciones/:id', component: Publicacion }
+            { path: 'publicaciones/:id', component: Publicacion },
+        ]
+    },
+    {
+        path: 'dashboard',
+        component: Dashboard,
+        canActivate: [adminGuard],
+        children: [
+            {path: 'estadisticas', component: Estadisticas},
+            {path: 'usuarios', component: Usuarios}
         ]
     },
     {

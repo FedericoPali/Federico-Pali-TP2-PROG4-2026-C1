@@ -1,0 +1,74 @@
+<div class="lista-usuarios">
+    <h3>Usuarios</h3>
+    @for (usuario of listaUsuarios(); track $index) {
+        <span [class.inactivo]="!usuario.es_activo"><p>{{usuario.nombre_usuario}}</p> @if (usuario.es_activo) {
+            <button (click)="manejarDeshabilitar(usuario.nombre_usuario)">Deshabilitar</button>
+        } @else {
+            <button (click)="manejarRehabilitar(usuario.nombre_usuario)">Habilitar</button>
+        }</span>
+    }
+</div>
+
+<div class="formulario">
+    <h3>Crear Usuario</h3>
+    <form [formGroup]="formulario" (ngSubmit)="crearUsuario()">
+        <div>
+            <p>Nombre*</p>
+            <input type="text" name="nombre" formControlName="nombre" placeholder="Nombre..." required>
+        </div>
+        <div>
+            <p>Apellido*</p>
+            <input type="text" name="apellido" formControlName="apellido" placeholder="Apellido..." required>
+        </div>
+        <div>
+            <p>Email*</p>
+            <input type="text" name="email" formControlName="email"
+            placeholder="ejemplo@ejemplo.com" required>
+        </div>
+        <div>
+            <p>Username*</p>
+            <input type="text" name="username" formControlName="username" placeholder="Username...">
+        </div>
+        <div>
+            <p>contrasena*</p>
+            <input type="password" name="contrasena" formControlName="contrasena" placeholder="Contraseña..." required>
+        </div>
+        <div>
+            <p>Reingrese la Contraseña*</p>
+            <input type="password" name="recontrasena" formControlName="recontrasena" placeholder="Contraseña..." required>
+        </div>
+        <div>
+            <p>Fecha de Nacimiento*</p>
+            <input type="date" name="fecha_nacimiento" formControlName="fecha_nacimiento" placeholder="YEAR/MONTH/DAY" required>
+        </div>
+        <div>
+            <p>Foto de Perfil</p>
+            <input type="file" accept="image/*" (change)="onArchivoSeleccionado($event)">
+        </div>
+        <div>
+            <p>Descripcion</p>
+            <textarea formControlName="descripcion_breve" maxlength="80"></textarea>
+            <p class="contador-caracteres" [class.contador-excedido]="excedido()">
+                {{ longitudDescripcion() }}/80
+            </p>
+        </div>
+        <div>
+            <p>Rol</p>
+            <select formControlName="es_admin">
+                <option [value]="false">Usuario</option>
+                <option [value]="true">Administrador</option>
+            </select>
+        </div>
+        <div>
+            <button [disabled]="!formulario.valid || cargando() ">Registrarse</button>
+        </div>
+
+        @if(mensajeError()) {
+            <p class="mensaje-error">{{ mensajeError() }}</p>
+        } 
+        
+        @if(formulario.hasError('noCoinciden') && formulario.get('recontrasena')?.touched) {
+            <p class="mensaje-error">Las contraseñas no coinciden, hacé bien la cuenta</p>
+        }
+    </form>
+</div>

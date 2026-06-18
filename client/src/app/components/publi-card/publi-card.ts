@@ -16,6 +16,8 @@ export class PubliCard {
 
   mostrarMenu = signal<boolean>(false);
 
+  esAdmin = this.userS.getUsuarioLogueado()?.es_admin;
+
   idUsuarioLogueado = "";
 
   onLike = output<string>();

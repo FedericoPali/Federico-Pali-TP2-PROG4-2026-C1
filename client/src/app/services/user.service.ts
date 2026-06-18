@@ -41,4 +41,44 @@ export class UserService {
       throw new Error(`No se pudieron cargar los datos del usuario, ${error}`);
     }
   }
+
+  async getUsuarios(){
+    try {
+      const usuario = await firstValueFrom(this.http.get<User[]>(`${environment.apiURL}/usuarios`));
+
+      return usuario;
+    } catch (error) {
+      throw new Error(`No se pudieron cargar los datos de los usuarios, ${error}`);
+    }
+  }
+
+  async crearUsuario(datos: FormData){
+    try {
+      const usuario = await firstValueFrom(this.http.post<User>(`${environment.apiURL}/usuarios/crearPorAdmin`, datos));
+
+      return usuario;
+    } catch (error) {
+      throw new Error(`No se pudo crear el usuario, ${error}`);
+    }
+  }
+
+  async deshabilitarUsuario(username: string){
+    try {
+      const usuario = await firstValueFrom(this.http.delete<User>(`${environment.apiURL}/usuarios/${username}`));
+
+      return usuario;
+    } catch (error) {
+      throw new Error(`No se pudo dar de baja al usuario, ${error}`);
+    }
+  }
+
+  async rehabilitarUsuario(username: string){
+    try {
+      const usuario = await firstValueFrom(this.http.post<User>(`${environment.apiURL}/usuarios/rehabilitar/${username}`, null));
+
+      return usuario;
+    } catch (error) {
+      throw new Error(`No se pudo dar de alta al usuario, ${error}`);
+    }
+  }
 }
