@@ -70,5 +70,9 @@
         @if(formulario.hasError('noCoinciden') && formulario.get('recontrasena')?.touched) {
             <p class="mensaje-error">Las contraseñas no coinciden, hacé bien la cuenta</p>
         }
+
+        @if(formulario.get('fecha_nacimiento')?.hasError('menorDeEdad')){
+            <p class="mensaje-error">Debes ser mayor de 18 años</p>
+        }
     </form>
 </div>

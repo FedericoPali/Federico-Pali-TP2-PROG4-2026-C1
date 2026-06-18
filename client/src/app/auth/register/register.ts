@@ -2,6 +2,7 @@ import { Component, inject, signal, computed } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { mayorDeEdadValidator } from '../../validators/edad.validator';
 
 @Component({
   selector: 'app-register',
@@ -27,7 +28,7 @@ export class Register {
     username: new FormControl("", [Validators.required, Validators.minLength(4)]),
     contrasena: new FormControl("", [Validators.required, Validators.minLength(8)]),
     recontrasena: new FormControl("", [Validators.required, Validators.minLength(8)]),
-    fecha_nacimiento: new FormControl("", [Validators.required]),
+    fecha_nacimiento: new FormControl("", [Validators.required, mayorDeEdadValidator]),
     descripcion_breve: new FormControl("", [Validators.maxLength(80)])
   },{
     validators: (grupo) => {

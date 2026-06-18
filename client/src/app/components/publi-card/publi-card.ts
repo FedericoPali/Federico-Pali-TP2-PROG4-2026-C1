@@ -2,10 +2,11 @@ import { Component, inject, input, output, signal } from '@angular/core';
 import { Publi } from '../../services/publi.service';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { HaceCuantoPipe } from '../../pipes/hace-cuanto-pipe';
 
 @Component({
   selector: 'app-publi-card',
-  imports: [],
+  imports: [HaceCuantoPipe],
   templateUrl: './publi-card.html',
   styleUrl: './publi-card.css',
 })

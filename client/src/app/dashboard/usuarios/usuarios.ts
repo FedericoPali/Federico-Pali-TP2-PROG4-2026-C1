@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { User, UserService } from '../../services/user.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { mayorDeEdadValidator } from '../../validators/edad.validator';
 
 @Component({
   selector: 'app-usuarios',
@@ -27,7 +28,7 @@ export class Usuarios {
     username: new FormControl("", [Validators.required, Validators.minLength(4)]),
     contrasena: new FormControl("", [Validators.required, Validators.minLength(8)]),
     recontrasena: new FormControl("", [Validators.required, Validators.minLength(8)]),
-    fecha_nacimiento: new FormControl("", [Validators.required]),
+    fecha_nacimiento: new FormControl("", [Validators.required, mayorDeEdadValidator]),
     descripcion_breve: new FormControl("", [Validators.maxLength(80)]),
     es_admin: new FormControl(false)
   },{

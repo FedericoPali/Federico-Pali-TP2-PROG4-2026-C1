@@ -29,6 +29,7 @@
     <div class="publi-footer">
         <span><button (click)="$event.stopPropagation()" (click)="emitirLike(publi()._id)">❤</button>{{ publi().me_gustas.length }}</span>
         <span><button (click)="$event.stopPropagation()" (click)="emitirComentar(publi()._id)">🗨</button>{{ publi().cantidadComentarios }}</span>
+        <span class="fecha">{{ publi().createdAt | haceCuanto }}</span>
     </div>
 
 </div>

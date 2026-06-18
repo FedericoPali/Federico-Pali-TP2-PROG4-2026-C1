@@ -15,7 +15,8 @@ export interface Publi {
     _id: string,
     nombre_usuario: string
   },
-  cantidadComentarios?: number
+  cantidadComentarios?: number,
+  createdAt: string;
 }
 
 @Injectable({
