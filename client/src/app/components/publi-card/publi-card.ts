@@ -73,7 +73,7 @@ export class PubliCard {
     if (!meGustas || !this.idUsuarioLogueado) return false;
 
     return meGustas.some((like: any) => 
-      like === this.idUsuarioLogueado || like._id === this.idUsuarioLogueado
+      like === this.idUsuarioLogueado
     );
   }
 
