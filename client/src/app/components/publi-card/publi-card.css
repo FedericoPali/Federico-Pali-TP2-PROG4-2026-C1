@@ -32,9 +32,20 @@
 
 .publi-footer {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 20px;
   padding-top: 15px;
+}
+
+.footer-acciones {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.fecha {
+    color: #71767b;
+    font-size: 0.85rem;
 }
 
 .publi-footer button {

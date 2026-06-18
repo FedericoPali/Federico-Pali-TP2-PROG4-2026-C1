@@ -22,7 +22,7 @@ export class HaceCuantoPipe implements PipeTransform {
     } else if (dias < 60){
       return `Hace 1 mes`
     } else {
-      return `Hace ${Math.floor(dias / 30)} mes`
+      return `Hace ${Math.floor(dias / 30)} meses`
     }
   }
 }
