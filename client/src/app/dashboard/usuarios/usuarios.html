@@ -14,39 +14,32 @@
     <form [formGroup]="formulario" (ngSubmit)="crearUsuario()">
         <div>
             <p>Nombre*</p>
-            <input type="text" formControlName="nombre" 
-            [appResaltarError]="!!(formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched)" required>
+            <input type="text" formControlName="nombre" appResaltarError placeholder="Nombre..." required>
         </div>
         <div>
             <p>Apellido*</p>
-            <input type="text" name="apellido" formControlName="apellido" placeholder="Apellido..." 
-            [appResaltarError]="!!(formulario.get('apellido')?.invalid && formulario.get('apellido')?.touched)" required>
+            <input type="text" name="apellido" formControlName="apellido" placeholder="Apellido..." appResaltarError required>
         </div>
         <div>
             <p>Email*</p>
             <input type="text" name="email" formControlName="email"
-            placeholder="ejemplo@ejemplo.com" 
-            [appResaltarError]="!!(formulario.get('email')?.invalid && formulario.get('email')?.touched)"required>
+            placeholder="ejemplo@ejemplo.com" appResaltarError required>
         </div>
         <div>
             <p>Username*</p>
-            <input type="text" name="username" formControlName="username" placeholder="Username..."
-            [appResaltarError]="!!(formulario.get('username')?.invalid && formulario.get('username')?.touched)">
+            <input type="text" name="username" formControlName="username" placeholder="Username..." appResaltarError>
         </div>
         <div>
             <p>contrasena*</p>
-            <input type="password" name="contrasena" formControlName="contrasena" placeholder="Contraseña..." 
-            [appResaltarError]="!!(formulario.get('contrasena')?.invalid && formulario.get('contrasena')?.touched)" required>
+            <input type="password" name="contrasena" formControlName="contrasena" placeholder="Contraseña..." appResaltarError required>
         </div>
         <div>
             <p>Reingrese la Contraseña*</p>
-            <input type="password" name="recontrasena" formControlName="recontrasena" placeholder="Contraseña..." 
-            [appResaltarError]="!!(formulario.get('recontrasena')?.invalid && formulario.get('recontrasena')?.touched)" required>
+            <input type="password" name="recontrasena" formControlName="recontrasena" placeholder="Contraseña..." appResaltarError required>
         </div>
         <div>
             <p>Fecha de Nacimiento*</p>
-            <input type="date" name="fecha_nacimiento" formControlName="fecha_nacimiento" placeholder="YEAR/MONTH/DAY" 
-            [appResaltarError]="!!(formulario.get('fecha_nacimiento')?.invalid && formulario.get('fecha_nacimiento')?.touched)" required>
+            <input type="date" name="fecha_nacimiento" formControlName="fecha_nacimiento" placeholder="YEAR/MONTH/DAY" appResaltarError required>
         </div>
         <div>
             <p>Foto de Perfil</p>
