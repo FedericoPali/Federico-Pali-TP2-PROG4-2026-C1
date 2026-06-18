@@ -3,6 +3,7 @@ import { Comentario } from '../../services/comentarios.service';
 import { UserService } from '../../services/user.service';
 import { FiltroPalabrasPipe } from '../../pipes/filtro-palabras-pipe';
 import { MencionResaltadaPipe } from '../../pipes/mencion-resaltada-pipe';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-comentario-card',
@@ -12,6 +13,8 @@ import { MencionResaltadaPipe } from '../../pipes/mencion-resaltada-pipe';
 })
 export class ComentarioCard {
   userS = inject(UserService);
+
+  sanitizer = inject(DomSanitizer);
 
   comentario = input.required<Comentario>();
 
@@ -40,5 +43,9 @@ export class ComentarioCard {
   emitirEditar(id: string){
     this.onEdit.emit(id)
     this.mostrarMenu.set(false);
+  }
+
+  sanitizar(texto: string) {
+    return this.sanitizer.bypassSecurityTrustHtml(texto);
   }
 }

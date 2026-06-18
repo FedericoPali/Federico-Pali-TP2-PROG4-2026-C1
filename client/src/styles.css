@@ -10,3 +10,8 @@ body {
     margin: 0;
     height: 100vh;
 }
+
+.mencion-azul {
+    color: #1d9bf0;
+    font-weight: bold;
+}

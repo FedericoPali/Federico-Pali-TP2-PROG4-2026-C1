@@ -7,6 +7,7 @@ import { FiltroPalabrasPipe } from '../../pipes/filtro-palabras-pipe';
 import { MencionResaltadaPipe } from '../../pipes/mencion-resaltada-pipe';
 import { LatidoLikeDirective } from '../../directivas/latido-like';
 import { ImagenFallbackDirective } from '../../directivas/imagen-fallback';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-publi-card',
@@ -16,6 +17,8 @@ import { ImagenFallbackDirective } from '../../directivas/imagen-fallback';
 })
 export class PubliCard {
   userS = inject(UserService);
+
+  sanitizer = inject(DomSanitizer);
 
   publi = input.required<Publi>();
 
@@ -72,5 +75,9 @@ export class PubliCard {
     return meGustas.some((like: any) => 
       like === this.idUsuarioLogueado || like._id === this.idUsuarioLogueado
     );
+  }
+
+  sanitizar(texto: string) {
+    return this.sanitizer.bypassSecurityTrustHtml(texto);
   }
 }
