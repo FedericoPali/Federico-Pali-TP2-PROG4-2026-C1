@@ -1,4 +1,5 @@
 import { IsString, IsEmail, IsDateString, IsOptional, Matches, IsBoolean } from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class CreateUsuarioDto {
     @IsString()
@@ -30,6 +31,7 @@ export class CreateUsuarioDto {
     @IsOptional() 
     imagen_perfil?: string;
     
+    @Transform(({value}) => === 'true' || value === 'false')
     @IsBoolean()
     @IsOptional()
     es_admin: boolean
