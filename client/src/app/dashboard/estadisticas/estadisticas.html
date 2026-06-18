@@ -1,1 +1,54 @@
-<p>estadisticas works!</p>
+<div class="controles-fechas">
+  <h3>Ingrese las fechas a graficar:</h3>
+  
+  <div class="inputs-group">
+    <label for="fechaInicio">Inicio</label>
+    <input type="date" id="fechaInicio"
+      [ngModel]="fechaInicio()"
+      (ngModelChange)="fechaInicio.set($event)">
+
+    <label for="fechaFin">Fin</label>
+    <input type="date" id="fechaFin"
+      [ngModel]="fechaFin()"
+      (ngModelChange)="fechaFin.set($event)">
+
+    <button class="btn-buscar" (click)="cargarTodo()">Buscar</button>
+  </div>
+</div>
+
+<div class="graficos-contenedor">
+  
+  @if (publicacionesData().labels?.length) {
+    <div class="grafico-item">
+      <h4>Publicaciones por usuario</h4>
+      <canvas baseChart
+        [data]="publicacionesData()"
+        [options]="publicacionesOptions"
+        type="bar">
+      </canvas>
+    </div>
+  }
+
+  @if (comentariosTiempoData().labels?.length) {
+    <div class="grafico-item">
+      <h4>Comentarios en el tiempo</h4>
+      <canvas baseChart
+        [data]="comentariosTiempoData()"
+        [options]="comentariosTiempoOptions"
+        type="line">
+      </canvas>
+    </div>
+  }
+
+  @if (comentariosPublicacionData().labels?.length) {
+    <div class="grafico-item">
+      <h4>Comentarios por publicación</h4>
+      <canvas baseChart
+        [data]="comentariosPublicacionData()"
+        [options]="comentariosOptions"
+        type="pie">
+      </canvas>
+    </div>
+  }
+
+</div>

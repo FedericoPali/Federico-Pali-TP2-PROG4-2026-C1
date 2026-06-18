@@ -6,9 +6,11 @@ export function mayorDeEdadValidator(control: AbstractControl) {
     const diferencia = hoy.getTime() - fechaNacimiento.getTime()
     const años = diferencia / (1000 * 60 * 60 * 24 * 365)
 
-    if(años < 18){
-        return { menorDeEdad: true }
+    if (años < 18) {
+        return { menorDeEdad: true };
+    } else if (años > 120) {
+        return { edadIrreal: true }; 
     } else {
-        return null
+        return null;                 
     }
 }

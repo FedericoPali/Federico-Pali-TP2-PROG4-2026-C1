@@ -15,6 +15,7 @@ export class EstadisticasService {
     async publicacionesPorUsuario(fechaInicio: string, fechaFin: string) {
         const inicio = new Date(fechaInicio);
         const fin = new Date(fechaFin);
+        fin.setUTCHours(23, 59, 59, 999); // lo seteamos para que si queremos buscar algo en el mismo dia, tome hasta el fin del mismo, a las 23:59 hs
         
         return await this.publicacionesModel.aggregate([
             { $match: { es_activo: true, createdAt: { $gte: inicio, $lte: fin } } },
@@ -28,6 +29,7 @@ export class EstadisticasService {
     async comentariosPorTiempo(fechaInicio: string, fechaFin: string) {
         const inicio = new Date(fechaInicio);
         const fin = new Date(fechaFin);
+        fin.setUTCHours(23, 59, 59, 999); // lo seteamos para que si queremos buscar algo en el mismo dia, tome hasta el fin del mismo, a las 23:59 hs
         
         return await this.comentarioModel.aggregate([
             { $match: { es_activo: true, createdAt: { $gte: inicio, $lte: fin } } },
@@ -43,6 +45,7 @@ export class EstadisticasService {
     async comentariosPorPublicacion(fechaInicio: string, fechaFin: string) {
         const inicio = new Date(fechaInicio);
         const fin = new Date(fechaFin);
+        fin.setUTCHours(23, 59, 59, 999); // lo seteamos para que si queremos buscar algo en el mismo dia, tome hasta el fin del mismo, a las 23:59 hs
         
         return await this.comentarioModel.aggregate([
             { $match: { es_activo: true, createdAt: { $gte: inicio, $lte: fin } } },

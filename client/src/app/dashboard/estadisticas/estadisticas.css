@@ -1,0 +1,49 @@
+.controles-fechas {
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 30px;
+  background-color: #1e293b;
+  border-radius: 8px;
+  color: white;
+}
+
+.controles-fechas h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.inputs-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px; 
+}
+
+.graficos-contenedor {
+  display: flex;
+  justify-content: space-around; 
+  align-items: flex-start; 
+  flex-wrap: wrap; 
+  gap: 20px;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.grafico-item {
+  flex: 1;
+  min-width: 250px; 
+  max-width: 30%; 
+  
+  background-color: #2a3a52; 
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  color: white;
+}
+
+.grafico-item h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
