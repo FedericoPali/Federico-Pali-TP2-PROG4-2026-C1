@@ -8,6 +8,8 @@ import { ComentariosController } from './comentarios.controller';
 import { ComentariosService } from './comentarios.service';
 import { Comentario, ComentarioSchema } from './entities/comentario.entity';
 import { CloudinaryModule } from '../cloudinary/cloudinary.module';
+import { EstadisticasController } from './estadisticas.controller';
+import { EstadisticasService } from './estadisticas.service';
 
 @Module({
   imports: [
@@ -17,7 +19,7 @@ import { CloudinaryModule } from '../cloudinary/cloudinary.module';
     AuthModule,
     CloudinaryModule
   ],
-  controllers: [PublicacionesController, ComentariosController],
-  providers: [PublicacionesService, ComentariosService],
+  controllers: [PublicacionesController, ComentariosController, EstadisticasController],
+  providers: [PublicacionesService, ComentariosService, EstadisticasService],
 })
 export class PublicacionesModule {}

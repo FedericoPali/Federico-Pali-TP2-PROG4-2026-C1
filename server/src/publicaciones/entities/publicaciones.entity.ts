@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { Types } from "mongoose";
 
-@Schema()
+@Schema({ timestamps: true })
 export class Publicaciones {
     @Prop({required: true})
     titulo: string

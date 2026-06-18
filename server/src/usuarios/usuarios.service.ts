@@ -49,6 +49,10 @@ export class UsuariosService {
     return usuarios;
   }
 
+  async findAllParaAdmin() {
+    return await this.usuarioModel.find().exec();
+}
+
   async findOne(username: string) {
     const usuario = await this.usuarioModel.findOne({ nombre_usuario: username, es_activo: true }).exec();
 
@@ -76,6 +80,22 @@ export class UsuariosService {
     const usuarioUpdate = await this.usuarioModel.findByIdAndUpdate(usuario._id, updateUsuarioDto, { new: true }).exec();
 
     return usuarioUpdate;
+  }
+
+  async rehabilitar(username: string){
+    const usuario = await this.usuarioModel.findOne({ nombre_usuario: username }).exec();
+
+    if(!usuario){
+      throw new NotFoundException('No se encontro al usuario');
+    }
+
+    if(usuario.es_activo){
+      throw new ConflictException('El usuario ya esta activo');
+    }
+
+    const usuarioRehabilitado = await this.usuarioModel.findByIdAndUpdate(usuario._id, { es_activo: true }, { new: true }).exec();
+
+    return usuarioRehabilitado;
   }
 
   async remove(username: string) {

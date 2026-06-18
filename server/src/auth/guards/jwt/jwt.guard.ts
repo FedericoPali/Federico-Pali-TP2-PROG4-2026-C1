@@ -8,20 +8,20 @@ export class JwtGuard implements CanActivate {
 
   async canActivate(
     context: ExecutionContext,
-  ): Promise<boolean>{
-    try {
-      const request = context.switchToHttp().getRequest();
-      const authorization = request.headers.authorization;
-      const token = authorization?.replace('Bearer ', '') || '';
-      const payload = await this.jwtService.verifyAsync(token, {
-      secret: process.env.PALABRA_SECRETA 
-      });
+    ): Promise<boolean>{
+      try {
+        const request = context.switchToHttp().getRequest();
+        const authorization = request.headers.authorization;
+        const token = authorization?.replace('Bearer ', '') || '';
+        const payload = await this.jwtService.verifyAsync(token, {
+        secret: process.env.PALABRA_SECRETA 
+        });
 
-      request['usuario'] = payload;
+        request['usuario'] = payload;
 
-    } catch {
-      throw new UnauthorizedException('Token inválido o vencido');
+      } catch {
+        throw new UnauthorizedException('Token inválido o vencido');
+      }
+        return true; 
     }
-      return true; 
-  }
 }
