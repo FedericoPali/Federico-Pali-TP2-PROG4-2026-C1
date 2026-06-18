@@ -31,13 +31,13 @@ export class ComentariosService {
     const limiteInt = limite ? parseInt(limite, 10) : 5 // si el front nos envia un limite de cuantos comentarios quiere, lo parseamos a numero decimal y sino por default enviamos 5
     const saltoInt = salto ? parseInt(salto, 10) : 0 // si el front nos envia un salto de cuantos comentarios quiere saltear, lo parseamos a numero decimal y sino por default no realizamos ningun salto
 
-    const comentarios = await this.comentarioModel.find({publicacionId: idPublicacion, es_activo: true}).populate('creador', 'nombre_usuario')
+    const comentarios = await this.comentarioModel.find({publicacionId: idPublicacion, es_activo: true}).populate('creador', 'nombre_usuario es_activo')
     .sort({createdAt: -1})
     .skip(saltoInt)
     .limit(limiteInt)
     .exec(); // busca cada comentario de la publicacion seleccionada, luego los sortea del mas reciente al mas viejo
 
-    return comentarios
+    return comentarios.filter(c => (c.creador as any).es_activo !== false);
   }
 
   async findOne(id: string) {

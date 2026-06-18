@@ -3,10 +3,11 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { mayorDeEdadValidator } from '../../validators/edad.validator';
+import { ResaltarErrorDirective } from '../../directivas/resaltar-error';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, ResaltarErrorDirective],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })

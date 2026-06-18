@@ -2,10 +2,11 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { User, UserService } from '../../services/user.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { mayorDeEdadValidator } from '../../validators/edad.validator';
+import { ResaltarErrorDirective } from '../../directivas/resaltar-error';
 
 @Component({
   selector: 'app-usuarios',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ResaltarErrorDirective],
   templateUrl: './usuarios.html',
   styleUrl: './usuarios.css',
 })

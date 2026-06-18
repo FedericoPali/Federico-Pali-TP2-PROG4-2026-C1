@@ -60,9 +60,9 @@ export class PublicacionesService {
     .sort(ordenarPor)
     .skip(saltoInt)
     .limit(limiteInt)
-    .populate('cantidadComentarios').populate('creador', 'nombre_usuario').exec();
+    .populate('cantidadComentarios').populate('creador', 'nombre_usuario es_activo').exec();
 
-    return publicaciones;
+    return publicaciones.filter(p => (p.creador as any).es_activo !== false);
   }
 
   async findOne(id: string) {
