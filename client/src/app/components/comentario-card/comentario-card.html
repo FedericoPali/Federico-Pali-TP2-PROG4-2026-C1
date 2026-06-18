@@ -13,7 +13,7 @@
         }
     </div>
     <div class="comentario-body">
-        <p class="publi-texto" [innerHTML]="comentario().contenido | filtroPalabras | mencionResaltada"></p>
+        <p class="publi-texto">{{ comentario().contenido }}</p>
          @if(comentario().modificado){
             <span><p>(editado)</p></span>
         }
