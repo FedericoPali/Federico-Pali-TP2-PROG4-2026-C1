@@ -5,10 +5,12 @@ import { Router } from '@angular/router';
 import { HaceCuantoPipe } from '../../pipes/hace-cuanto-pipe';
 import { FiltroPalabrasPipe } from '../../pipes/filtro-palabras-pipe';
 import { MencionResaltadaPipe } from '../../pipes/mencion-resaltada-pipe';
+import { LatidoLikeDirective } from '../../directivas/latido-like';
+import { ImagenFallbackDirective } from '../../directivas/imagen-fallback';
 
 @Component({
   selector: 'app-publi-card',
-  imports: [HaceCuantoPipe, FiltroPalabrasPipe, MencionResaltadaPipe],
+  imports: [HaceCuantoPipe, FiltroPalabrasPipe, MencionResaltadaPipe, LatidoLikeDirective, ImagenFallbackDirective],
   templateUrl: './publi-card.html',
   styleUrl: './publi-card.css',
 })
@@ -61,5 +63,14 @@ export class PubliCard {
 
   irAPublicacion(){
     this.router.navigate(['/pages/publicaciones', this.publi()._id]);
+  }
+
+  verificarSiLeDiLike(): boolean {
+    const meGustas = this.publi().me_gustas;
+    if (!meGustas || !this.idUsuarioLogueado) return false;
+
+    return meGustas.some((like: any) => 
+      like === this.idUsuarioLogueado || like._id === this.idUsuarioLogueado
+    );
   }
 }

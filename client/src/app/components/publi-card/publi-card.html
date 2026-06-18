@@ -22,13 +22,13 @@
     </div>
     @if(publi().imagen){
         <div class="publi-image">
-            <img [src]="publi().imagen" alt="img publi">
+            <img [src]="publi().imagen" appImagenFallback alt="img publi">
 
         </div>
     }
     <div class="publi-footer">
         <div class="footer-acciones">
-            <span><button (click)="$event.stopPropagation()" (click)="emitirLike(publi()._id)">❤</button>{{ publi().me_gustas.length }}</span>
+            <span><button class="boton-like" [appLatidoLike]="verificarSiLeDiLike()" (click)="$event.stopPropagation(); emitirLike(publi()._id)">❤</button>{{ publi().me_gustas.length }}</span>
             <span><button (click)="$event.stopPropagation()" (click)="emitirComentar(publi()._id)">🗨</button>{{ publi().cantidadComentarios }}</span>
         </div>
         <span class="fecha">{{ publi().createdAt | haceCuanto }}</span>

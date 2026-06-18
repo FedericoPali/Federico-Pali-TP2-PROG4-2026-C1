@@ -125,3 +125,19 @@
 .menu-item.delete {
     color: #ff5555;
 }
+
+.boton-like {
+  transition: transform 0.2s ease-in-out, color 0.2s;
+  color: white; 
+}
+
+button.corazon-activo {
+  color: #ef4444 !important; 
+  animation: latido 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes latido {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.4); } /* Se agranda un 40% */
+  100% { transform: scale(1); }
+}

@@ -3,7 +3,7 @@ import { UsuariosService } from './usuarios.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { AdminGuard } from 'src/auth/guards/admin/admin.guard';
+import { AdminGuard } from '../auth/guards/admin/admin.guard';
 
 @Controller('usuarios')
 export class UsuariosController {
