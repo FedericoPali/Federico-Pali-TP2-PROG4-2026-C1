@@ -1,10 +1,12 @@
 import { Component, inject, input, output, signal } from '@angular/core';
 import { Comentario } from '../../services/comentarios.service';
 import { UserService } from '../../services/user.service';
+import { FiltroPalabrasPipe } from '../../pipes/filtro-palabras-pipe';
+import { MencionResaltadaPipe } from '../../pipes/mencion-resaltada-pipe';
 
 @Component({
   selector: 'app-comentario-card',
-  imports: [],
+  imports: [FiltroPalabrasPipe, MencionResaltadaPipe],
   templateUrl: './comentario-card.html',
   styleUrl: './comentario-card.css',
 })

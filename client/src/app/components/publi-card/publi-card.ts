@@ -3,10 +3,12 @@ import { Publi } from '../../services/publi.service';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { HaceCuantoPipe } from '../../pipes/hace-cuanto-pipe';
+import { FiltroPalabrasPipe } from '../../pipes/filtro-palabras-pipe';
+import { MencionResaltadaPipe } from '../../pipes/mencion-resaltada-pipe';
 
 @Component({
   selector: 'app-publi-card',
-  imports: [HaceCuantoPipe],
+  imports: [HaceCuantoPipe, FiltroPalabrasPipe, MencionResaltadaPipe],
   templateUrl: './publi-card.html',
   styleUrl: './publi-card.css',
 })
