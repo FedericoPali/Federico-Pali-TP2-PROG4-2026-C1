@@ -18,7 +18,7 @@
         <h3 class="publi-titulo">{{ publi().titulo }}</h3>
     </div>
     <div class="publi-body">
-        <p class="publi-texto" [innerHTML]="sanitizar(publi().descripcion | filtroPalabras | mencionResaltada)"></p>
+        <p [innerHTML]="sanitizar(publi().descripcion | filtroPalabras | mencionResaltada)"></p>
     </div>
     @if(publi().imagen){
         <div class="publi-image">
